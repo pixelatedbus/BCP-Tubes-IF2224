@@ -3,6 +3,18 @@ import json
 
 class RuleReader:
     @staticmethod
+    def expand_char_range(char_range: str) -> list:
+        list_chars: str = []
+        for i in range(len(char_range)):
+            if i + 2 < len(char_range) and char_range[i + 1] == '-':
+                start, end = char_range[i], char_range[i + 2]
+                list_chars.extend([chr(c) for c in range(ord(start), ord(end) + 1)])
+                i += 2
+            else:
+                list_chars.append(char_range[i])
+        return list_chars
+
+    @staticmethod
     def from_file(file_path: str) -> StateMachine:
         with open(file_path, 'r') as file:
             rules: dict = json.load(file)
@@ -19,7 +31,12 @@ class RuleReader:
             if state in ["start_state", "final_states", "keywords"]:
                 continue
             for input_char, next_state in transitions.items():
-                state_machine.add_transition(state, input_char, next_state)
+                if len(input_char) > 1 and '-' in input_char:
+                    expanded_chars = RuleReader.expand_char_range(input_char)
+                    for char in expanded_chars:
+                        state_machine.add_transition(state, char, next_state)
+                else:
+                    state_machine.add_transition(state, input_char, next_state)
         
         return state_machine
     
