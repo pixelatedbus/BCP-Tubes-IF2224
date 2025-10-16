@@ -2,62 +2,190 @@
   "start_state": "start",
   "final_states": {
     "id": "IDENTIFIER",
-    "num": "INTEGER",
-    "assign": "ASSIGN",
-    "plus": "PLUS",
-    "minus": "MINUS",
-    "mul": "MULTIPLY",
-    "div": "DIVIDE",
+    "num": "NUMBER",
+    "num_decimal": "NUMBER",
+    "num_exponent": "NUMBER",
+    "colon": "COLON",
+    "assign": "ASSIGN_OPERATOR",
+    "plus": "ARITHMETIC_OPERATOR",
+    "minus": "ARITHMETIC_OPERATOR",
+    "mul": "ARITHMETIC_OPERATOR",
+    "div": "ARITHMETIC_OPERATOR",
     "semi": "SEMICOLON",
     "lparen": "LPAREN",
-    "rparen": "RPAREN"
+    "rparen": "RPAREN",
+    "string": "STRING_LITERAL",
+    "char": "CHAR_LITERAL",
+    "lbracket": "LBRACKET",
+    "rbracket": "RBRACKET",
+    "comment_end": "COMMENT",
+    "comma": "COMMA",
+    "dotdot": "RANGE_OPERATOR",
+    "dot": "DOT",
+    "equal": "RELATIONAL_OPERATOR",
+    "less_than": "RELATIONAL_OPERATOR",
+    "less_equal": "RELATIONAL_OPERATOR",
+    "greater_than": "RELATIONAL_OPERATOR",
+    "greater_equal": "RELATIONAL_OPERATOR",
+    "not_equal": "RELATIONAL_OPERATOR"
   },
-  "keywords": ["program", "begin", "end", "var", "integer", "writeln"],
-  
+  "keywords": {
+    "program": "KEYWORD",
+    "var": "KEYWORD",
+    "begin": "KEYWORD",
+    "end": "KEYWORD",
+    "if": "KEYWORD",
+    "then": "KEYWORD",
+    "else": "KEYWORD",
+    "while": "KEYWORD",
+    "do": "KEYWORD",
+    "for": "KEYWORD",
+    "to": "KEYWORD",
+    "downto": "KEYWORD",
+    "integer": "KEYWORD",
+    "real": "KEYWORD",
+    "boolean": "KEYWORD",
+    "char": "KEYWORD",
+    "array": "KEYWORD",
+    "of": "KEYWORD",
+    "procedure": "KEYWORD",
+    "function": "KEYWORD",
+    "const": "KEYWORD",
+    "type": "KEYWORD",
+    "div": "ARITHMETIC_OPERATOR",
+    "mod": "ARITHMETIC_OPERATOR",
+    "and": "LOGICAL_OPERATOR",
+    "or": "LOGICAL_OPERATOR",
+    "not": "LOGICAL_OPERATOR"
+  },
+
   "start": {
+    " ": "start", "\n": "start", "\t": "start",
+
+    "[a-zA-Z]": "id",
+    "[0-9]": "num",
     "_": "id",
-    "a": "id", "b": "id", "c": "id", "d": "id", "e": "id", "f": "id", "g": "id",
-    "h": "id", "i": "id", "j": "id", "k": "id", "l": "id", "m": "id", "n": "id",
-    "o": "id", "p": "id", "q": "id", "r": "id", "s": "id", "t": "id", "u": "id",
-    "v": "id", "w": "id", "x": "id", "y": "id", "z": "id",
-    "A": "id", "B": "id", "C": "id", "D": "id", "E": "id", "F": "id", "G": "id",
-    "H": "id", "I": "id", "J": "id", "K": "id", "L": "id", "M": "id", "N": "id",
-    "O": "id", "P": "id", "Q": "id", "R": "id", "S": "id", "T": "id", "U": "id",
-    "V": "id", "W": "id", "X": "id", "Y": "id", "Z": "id",
 
-    "0": "num", "1": "num", "2": "num", "3": "num", "4": "num",
-    "5": "num", "6": "num", "7": "num", "8": "num", "9": "num",
-
-    ":": "assign",
+    ":": "colon",
     "+": "plus",
     "-": "minus",
     "*": "mul",
     "/": "div",
     ";": "semi",
     "(": "lparen",
-    ")": "rparen"
+    ")": "rparen",
+    "[": "lbracket",
+    "]": "rbracket",
+    "'": "char_unfinished_1",
+    "{": "lcurly",
+    ",": "comma",
+    ".": "dot",
+    "=": "equal",
+    "<": "less_than",
+    ">": "greater_than"
   },
 
   "id": {
     "_": "id",
-    "a": "id", "b": "id", "c": "id", "d": "id", "e": "id", "f": "id", "g": "id",
-    "h": "id", "i": "id", "j": "id", "k": "id", "l": "id", "m": "id", "n": "id",
-    "o": "id", "p": "id", "q": "id", "r": "id", "s": "id", "t": "id", "u": "id",
-    "v": "id", "w": "id", "x": "id", "y": "id", "z": "id",
-    "A": "id", "B": "id", "C": "id", "D": "id", "E": "id", "F": "id", "G": "id",
-    "H": "id", "I": "id", "J": "id", "K": "id", "L": "id", "M": "id", "N": "id",
-    "O": "id", "P": "id", "Q": "id", "R": "id", "S": "id", "T": "id", "U": "id",
-    "V": "id", "W": "id", "X": "id", "Y": "id", "Z": "id",
-    "0": "id", "1": "id", "2": "id", "3": "id", "4": "id",
-    "5": "id", "6": "id", "7": "id", "8": "id", "9": "id"
+    "[a-zA-Z0-9]": "id"
+  },
+
+  "dot" : {
+    ".": "dotdot"
+  },
+
+  "minus": {
+    "[0-9]": "num"
+  },
+
+  "less_than": {
+    "=": "less_equal",
+    ">": "not_equal"
+  },
+
+  "greater_than": {
+    "=": "greater_equal"
   },
 
   "num": {
-    "0": "num", "1": "num", "2": "num", "3": "num", "4": "num",
-    "5": "num", "6": "num", "7": "num", "8": "num", "9": "num"
+    "[0-9]": "num",
+    ".": "num_decimal",
+    "E": "num_exponent_unfinished",
+    "[a-zA-Z_]": "num_error"
   },
 
-  "assign": {
+  "num_decimal": {
+    "[0-9]": "num_decimal",
+    "E": "num_exponent_unfinished",
+    "[a-zA-Z_.]": "num_error"
+  },
+
+  "num_exponent_unfinished": {
+    "[0-9]": "num_exponent",
+    "+": "num_exponent_sign",
+    "-": "num_exponent_sign",
+    "[a-zA-Z_.]": "num_error"
+  },
+
+  "num_exponent_sign": {
+    "[0-9]": "num_exponent"
+  },
+
+  "num_exponent": {
+    "[0-9]": "num_exponent",
+    "[a-zA-Z_.]": "num_error"
+  },
+
+  "num_error": {
+    "[a-zA-Z0-9_.]": "num_error"
+  },
+
+  "colon": {
     "=": "assign"
+  },
+
+  "string_unfinished": {
+    "'": "string", "[a-zA-Z0-9_ !@#$%^&*()+=.,<>;:]": "string_unfinished"
+  },
+
+  "string" : {
+    "'": "string_unfinished"
+  },
+
+  "char_unfinished_1": {
+    "'": "char",
+    "[a-zA-Z0-9_ !@#$%^&*()+=.,<>;:]": "char_unfinished_2"
+  },
+
+  "char_unfinished_2": {
+    "'": "char",
+    "[a-zA-Z0-9_ !@#$%^&*()+=.,<>;:]": "string_unfinished"
+  },
+
+  "lparen": {
+    "*": "comment_unfinished_paren"
+  },
+
+  "lcurly": {
+    "[a-zA-Z0-9_ !@#$%^&*()+=.,<>;:\n\t\\{]": "comment_unfinished_curly",
+    "}": "comment_end"
+  },
+
+  "comment_unfinished_curly": {
+    "[a-zA-Z0-9_ !@#$%^&*()+=.,<>;:\n\t\\{]": "comment_unfinished_curly",
+    "}": "comment_end"
+  },
+  
+  "comment_unfinished_paren": {
+    "[a-zA-Z0-9_ !@#$%^&()+=.,<>;\\{\\}:\n\t]": "comment_unfinished_paren",
+    "*": "comment_half"
+  },  
+
+  "comment_half": {
+    "[a-zA-Z0-9_ !@#$%^&(+=.,<>;:\\{\\}\n\t]": "comment_unfinished_paren",
+    ")": "comment_end",
+    "*": "comment_half"
   }
+  
+  
 }
