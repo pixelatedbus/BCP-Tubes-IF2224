@@ -3,9 +3,12 @@ class StateMachine:
         self.transition: dict[tuple[str, str], str] = {} 
         self.final_states: dict[str, str] = {} # state -> token type
         self.start_state: str = "start"
-        self.reserved_keywords: set[str] = set()
+        self.reserved_keywords: dict[str, str] = {}
 
     def add_transition(self, from_state: str, input_char: str, to_state: str):
+        input_char = input_char.lower()
+        if (from_state, input_char) in self.transition:
+            return
         self.transition[(from_state, input_char)] = to_state
 
     def add_final_state(self, state: str, token_type: str = "IDENTIFIER"):
@@ -14,13 +17,13 @@ class StateMachine:
     def set_start_state(self, start_state: str):
         self.start_state = start_state
 
-    def add_reserved_keyword(self, keyword: str):
-        self.reserved_keywords.add(keyword)
+    def add_reserved_keyword(self, keyword: str, token_type: str = "KEYWORD"):
+        self.reserved_keywords[keyword] = token_type
 
     def get_next_state(self, current_state: str, input_char: str) -> str | None:
         return self.transition.get((current_state, input_char))
-    
-    def get_reserved_keywords(self) -> set[str]:
+
+    def get_reserved_keywords(self) -> dict[str, str]:
         return self.reserved_keywords
     
     def is_accepting_state(self, state: str) -> bool:

@@ -22,16 +22,15 @@ class RuleReader:
         state_machine.set_start_state(rules.get("start_state"))
         for final_state, token_type in rules.get("final_states", {}).items():
             state_machine.add_final_state(final_state, token_type)
-        
-        for keyword in rules.get("keywords", []):
-            keyword = keyword.lower()
-            state_machine.add_reserved_keyword(keyword)
-        
+
+        for keyword, token_type in rules.get("keywords", {}).items():
+            state_machine.add_reserved_keyword(keyword, token_type)
+
         for state, transitions in rules.items():
             if state in ["start_state", "final_states", "keywords"]:
                 continue
             for input_char, next_state in transitions.items():
-                if len(input_char) > 1 and '-' in input_char:
+                if len(input_char) > 1:
                     expanded_chars = RuleReader.expand_char_range(input_char)
                     for char in expanded_chars:
                         state_machine.add_transition(state, char, next_state)
@@ -44,17 +43,12 @@ class RuleReader:
 if __name__ == "__main__":
     sm = RuleReader.from_file("../test/milestone-1/input.json") # INI INPUT RULES MASI DARI AI YA
     automata = Automata(sm)
-    test_string = """
-program test;
-var x, y: integer;
-begin
-    x := 10;
-    y := x + 5;
-    writeln(x, y);
-end
-"""
+    test_code = "../test/milestone-1/test.pas"
+    with open(test_code, 'r') as f:
+        test_code = f.read()
+
     
-    for char in test_string:
+    for char in test_code:
         automata.process_char(char)
     automata.finalize()
     automata.print_tokens()
