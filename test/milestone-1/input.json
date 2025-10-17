@@ -3,7 +3,6 @@
   "final_states": {
     "id": "IDENTIFIER",
     "num": "NUMBER",
-    "num_decimal": "NUMBER",
     "num_exponent": "NUMBER",
     "colon": "COLON",
     "assign": "ASSIGN_OPERATOR",
@@ -20,7 +19,6 @@
     "rbracket": "RBRACKET",
     "comment_end": "COMMENT",
     "comma": "COMMA",
-    "dotdot": "RANGE_OPERATOR",
     "dot": "DOT",
     "equal": "RELATIONAL_OPERATOR",
     "less_than": "RELATIONAL_OPERATOR",
@@ -90,14 +88,6 @@
     "[a-zA-Z0-9]": "id"
   },
 
-  "dot" : {
-    ".": "dotdot"
-  },
-
-  "minus": {
-    "[0-9]": "num"
-  },
-
   "less_than": {
     "=": "less_equal",
     ">": "not_equal"
@@ -109,35 +99,28 @@
 
   "num": {
     "[0-9]": "num",
-    ".": "num_decimal",
     "E": "num_exponent_unfinished",
     "[a-zA-Z_]": "num_error"
-  },
-
-  "num_decimal": {
-    "[0-9]": "num_decimal",
-    "E": "num_exponent_unfinished",
-    "[a-zA-Z_.]": "num_error"
   },
 
   "num_exponent_unfinished": {
     "[0-9]": "num_exponent",
     "+": "num_exponent_sign",
-    "-": "num_exponent_sign",
-    "[a-zA-Z_.]": "num_error"
+    "[a-zA-Z_]": "num_error"
   },
 
   "num_exponent_sign": {
-    "[0-9]": "num_exponent"
+    "[0-9]": "num_exponent",
+    "[a-zA-Z_]": "num_error"
   },
 
   "num_exponent": {
     "[0-9]": "num_exponent",
-    "[a-zA-Z_.]": "num_error"
+    "[a-zA-Z_]": "num_error"
   },
 
   "num_error": {
-    "[a-zA-Z0-9_.]": "num_error"
+    "[a-zA-Z0-9_]": "num_error"
   },
 
   "colon": {
@@ -186,6 +169,4 @@
     ")": "comment_end",
     "*": "comment_half"
   }
-  
-  
 }

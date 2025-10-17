@@ -41,7 +41,7 @@ class Automata:
         self.current_state: str = state_machine.start_state
         self.buffer: str = ""
         self.token_type: str = ""
-        self.tokens: list[tuple[str, str]] = [] # List of (token_type, token_value)
+        self.tokens: list[tuple[str, str]] = [] # List of (token_type, token_value)f
         self.errors: list[str] = [] 
 
     def reset(self):
