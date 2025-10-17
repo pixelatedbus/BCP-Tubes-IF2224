@@ -3,15 +3,20 @@ import json
 
 class RuleReader:
     @staticmethod
-    def expand_char_range(char_range: str) -> list:
-        list_chars: str = []
-        for i in range(len(char_range)):
+    def expand_char_range(char_range: str) -> list[str]:
+        list_chars: list[str] = []
+        i = 0
+        while i < len(char_range):
             if i + 2 < len(char_range) and char_range[i + 1] == '-':
-                start, end = char_range[i], char_range[i + 2]
-                list_chars.extend([chr(c) for c in range(ord(start), ord(end) + 1)])
-                i += 2
+                start_char, end_char = char_range[i], char_range[i + 2]
+                
+                list_chars.extend([chr(c) for c in range(ord(start_char), ord(end_char) + 1)])
+                
+                i += 3
             else:
                 list_chars.append(char_range[i])
+                i += 1
+
         return list_chars
 
     @staticmethod
