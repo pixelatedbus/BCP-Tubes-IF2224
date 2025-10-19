@@ -44,18 +44,19 @@ class RuleReader:
         
         return state_machine
     
-# TESTING, gunakan 'uv run ./rule_reader.py' di terminal
-if __name__ == "__main__":
-    sm = RuleReader.from_file("../test/milestone-1/input.json") # INI INPUT RULES MASI DARI AI YA
-    automata = Automata(sm)
-    test_code = "../test/milestone-1/test.pas"
-    with open(test_code, 'r') as f:
-        test_code = f.read()
+# if __name__ == "__main__":
+#     sm = RuleReader.from_file("../test/milestone-1/input.json")
+#     automata = Automata(sm)
+#     test_code = "../test/milestone-1/"
+#     filename = input("Enter test file name (e.g., test.pas): ")
+#     test_code += filename
+#     with open(test_code, 'r') as f:
+#         test_code = f.read()
 
     
-    for char in test_code:
-        automata.process_char(char)
-    automata.finalize()
-    automata.print_tokens()
-    automata.errors and print("Errors:", automata.errors) # perlu ignore whitespace secara eksplisit
-    automata.save_tokens()
+#     for char in test_code:
+#         automata.process_char(char)
+#     automata.finalize()
+#     automata.print_tokens()
+#     automata.errors and print("Errors:", automata.errors)
+#     automata.save_tokens()
