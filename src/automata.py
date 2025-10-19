@@ -64,7 +64,7 @@ class Automata:
             # No valid transition, but in accepting state. Record token and reset, then reprocess char
             if self.buffer:
                 if self.buffer in self.state_machine.get_reserved_keywords(): 
-                    self.token_type = "KEYWORD"
+                    self.token_type = self.state_machine.get_reserved_keywords()[self.buffer]
                 self.tokens.append((self.token_type, self.buffer))
             self.reset()
             return self.process_char(char)
