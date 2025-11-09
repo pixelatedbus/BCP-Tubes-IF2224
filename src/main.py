@@ -1,5 +1,5 @@
-from rule_reader import RuleReader
-from automata import Automata
+from lexer.rule_reader import RuleReader
+from lexer.automata import Automata
 def main():
     sm = RuleReader.from_file("../test/milestone-1/input.json")
     automata = Automata(sm)
