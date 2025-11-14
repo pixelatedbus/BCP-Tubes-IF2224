@@ -12,3 +12,6 @@ class ParseNode:
         for child in self.children:
             result += child.to_string(indent + 2)
         return result
+    
+    def __str__(self):
+        return self.to_string()

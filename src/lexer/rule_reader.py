@@ -1,4 +1,4 @@
-from automata import Automata, StateMachine
+from .automata import Automata, StateMachine
 import json
 
 class RuleReader:

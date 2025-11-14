@@ -1,6 +1,7 @@
 from .model.declaration_parser import DeclarationParser
 from .model.expression_parser import ExpressionParser
 from .model.statement_parser import StatementParser
+from .model.node import ParseNode
 
 class Parser():
     def __init__(self, tokens):
@@ -34,12 +35,25 @@ class Parser():
         return token
 
     def parse_program_header(self):
+        program_header_node = ParseNode("<program_header>")
+        
         self.check_token("KEYWORD", "program")
-        self.check_token("IDENTIFIER")
+        identifier = self.check_token("IDENTIFIER")
         self.check_token("SEMICOLON")
 
+        program_header_node.add_child(ParseNode(f"KEYWORD(program)"))
+        program_header_node.add_child(ParseNode(f"IDENTIFIER({identifier[1]})"))
+        program_header_node.add_child(ParseNode("SEMICOLON(;)"))
+
+        return program_header_node
+    
     def parse_program(self):
-        self.parse_program_header()
-        self.declaration_parser.parse_declarations() #Will change after implementing declaration parser
-        self.statement_parser.parse_statements()     #Will change after implementing statement parser
-        self.check_token("DOT")
+        program_node = ParseNode("<program>")
+
+        program_header_node = self.parse_program_header()
+        program_node.add_child(program_header_node)
+        # self.declaration_parser.parse_declarations() #Will change after implementing declaration parser
+        # self.statement_parser.parse_statements()     #Will change after implementing statement parser
+        # self.check_token("DOT")
+        
+        return program_node
