@@ -84,7 +84,7 @@ class Automata:
         for token_type, token_value in self.tokens:
             print(f"{token_type}({token_value})")
     
-    def save_tokens(self, file_path: str = "test/milestone-1/tokens.txt"):
+    def save_tokens(self, file_path: str = "test/milestone-2/tokens.txt"):
         with open(file_path, 'w') as file:
             for token_type, token_value in self.tokens:
                 file.write(f"{token_type}({token_value})\n")

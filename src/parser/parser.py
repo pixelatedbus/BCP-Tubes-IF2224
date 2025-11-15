@@ -59,9 +59,13 @@ class Parser():
         program_header_node = self.parse_program_header()
         program_node.add_child(program_header_node)
 
-        expression_node = self.declaration_parser.parse_declarations()
-        program_node.add_child(expression_node)
-        # self.statement_parser.parse_statements()     #Will change after implementing statement parser
-        # self.check_token("DOT")
+        declaration_part_node = self.declaration_parser.parse_declarations()
+        program_node.add_child(declaration_part_node)
+
+        compound_statement_node = self.statement_parser.parse_statement()
+        program_node.add_child(compound_statement_node)
+
+        self.check_token("DOT")
+        program_node.add_child(ParseNode("DOT(.)"))
         
         return program_node
