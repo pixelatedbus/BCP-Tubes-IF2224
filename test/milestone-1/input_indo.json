@@ -25,7 +25,8 @@
     "less_equal": "RELATIONAL_OPERATOR",
     "greater_than": "RELATIONAL_OPERATOR",
     "greater_equal": "RELATIONAL_OPERATOR",
-    "not_equal": "RELATIONAL_OPERATOR"
+    "not_equal": "RELATIONAL_OPERATOR",
+    "range": "RANGE_OPERATOR"
   },
   
   "keywords": {
@@ -64,8 +65,8 @@
   "start": {
     " ": "start", "\n": "start", "\t": "start",
 
-    "[a-zA-Z]": "id",
-    "[0-9]": "num",
+    "a-zA-Z": "id",
+    "0-9": "num",
 
     ":": "colon",
     "+": "plus",
@@ -92,7 +93,7 @@
 
   "id": {
     "_": "id",
-    "[a-zA-Z0-9]": "id"
+    "a-zA-Z0-9": "id"
   },
 
   "less_than": {
@@ -105,29 +106,29 @@
   },
 
   "num": {
-    "[0-9]": "num",
+    "0-9": "num",
     "E": "num_exponent_unfinished",
-    "[a-zA-Z_]": "num_error"
+    "a-zA-Z_": "num_error"
   },
 
   "num_exponent_unfinished": {
-    "[0-9]": "num_exponent",
+    "0-9": "num_exponent",
     "+": "num_exponent_sign",
-    "[a-zA-Z_]": "num_error"
+    "a-zA-Z_": "num_error"
   },
 
   "num_exponent_sign": {
-    "[0-9]": "num_exponent",
-    "[a-zA-Z_]": "num_error"
+    "0-9": "num_exponent",
+    "a-zA-Z_": "num_error"
   },
 
   "num_exponent": {
-    "[0-9]": "num_exponent",
-    "[a-zA-Z_]": "num_error"
+    "0-9": "num_exponent",
+    "a-zA-Z_": "num_error"
   },
 
   "num_error": {
-    "[a-zA-Z0-9_]": "num_error"
+    "a-zA-Z0-9_": "num_error"
   },
 
   "colon": {

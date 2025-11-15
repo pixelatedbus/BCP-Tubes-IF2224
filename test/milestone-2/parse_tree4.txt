@@ -1,0 +1,103 @@
+<program>
+    ├── <program_header>
+    │   ├── KEYWORD(program)
+    │   ├── IDENTIFIER(test4)
+    │   └── SEMICOLON(;)
+    ├── <declaration-part>
+    │   ├── <type_declaration>
+    │   │   ├── KEYWORD(tipe)
+    │   │   ├── IDENTIFIER(angka)
+    │   │   ├── RELATIONAL_OPERATOR(=)
+    │   │   ├── <simple_type>
+    │   │   │   └── KEYWORD(integer)
+    │   │   ├── SEMICOLON(;)
+    │   │   ├── IDENTIFIER(arr30)
+    │   │   ├── RELATIONAL_OPERATOR(=)
+    │   │   ├── <array_type>
+    │   │   │   ├── KEYWORD(larik)
+    │   │   │   ├── LBRACKET([)
+    │   │   │   ├── <range>
+    │   │   │   │   ├── <expression>
+    │   │   │   │   │   └── <simple_expression>
+    │   │   │   │   │       └── <term>
+    │   │   │   │   │           └── <factor>
+    │   │   │   │   │               └── NUMBER(1)
+    │   │   │   │   ├── RANGE_OPERATOR(..)
+    │   │   │   │   └── <expression>
+    │   │   │   │       └── <simple_expression>
+    │   │   │   │           └── <term>
+    │   │   │   │               └── <factor>
+    │   │   │   │                   └── NUMBER(5)
+    │   │   │   ├── RBRACKET(])
+    │   │   │   ├── KEYWORD(dari)
+    │   │   │   └── <type>
+    │   │   │       └── KEYWORD(integer)
+    │   │   ├── SEMICOLON(;)
+    │   │   ├── IDENTIFIER(point)
+    │   │   ├── RELATIONAL_OPERATOR(=)
+    │   │   ├── <record_type>
+    │   │   │   ├── KEYWORD(rekaman)
+    │   │   │   ├── IDENTIFIER(x)
+    │   │   │   ├── COLON(:)
+    │   │   │   ├── <simple_type>
+    │   │   │   │   └── KEYWORD(integer)
+    │   │   │   ├── SEMICOLON(;)
+    │   │   │   ├── IDENTIFIER(y)
+    │   │   │   ├── COLON(:)
+    │   │   │   ├── <simple_type>
+    │   │   │   │   └── KEYWORD(integer)
+    │   │   │   ├── SEMICOLON(;)
+    │   │   │   └── KEYWORD(selesai)
+    │   │   └── SEMICOLON(;)
+    │   └── <var_declaration>
+    │       ├── KEYWORD(variabel)
+    │       ├── <identifier_list>
+    │       │   └── IDENTIFIER(i)
+    │       ├── COLON(:)
+    │       ├── <type>
+    │       │   └── KEYWORD(integer)
+    │       └── SEMICOLON(;)
+    ├── <compound-statement>
+    │   ├── KEYWORD(mulai)
+    │   ├── <statement-list>
+    │   │   ├── <for_statement>
+    │   │   │   ├── KEYWORD(untuk)
+    │   │   │   ├── IDENTIFIER(i)
+    │   │   │   ├── ASSIGN_OPERATOR(:=)
+    │   │   │   ├── <expression>
+    │   │   │   │   └── <simple_expression>
+    │   │   │   │       └── <term>
+    │   │   │   │           └── <factor>
+    │   │   │   │               └── NUMBER(1)
+    │   │   │   ├── KEYWORD(ke)
+    │   │   │   ├── <expression>
+    │   │   │   │   └── <simple_expression>
+    │   │   │   │       └── <term>
+    │   │   │   │           └── <factor>
+    │   │   │   │               └── NUMBER(5)
+    │   │   │   ├── KEYWORD(lakukan)
+    │   │   │   └── <assignment-statement>
+    │   │   │       ├── IDENTIFIER(a)
+    │   │   │       ├── ASSIGN_OPERATOR(:=)
+    │   │   │       └── <expression>
+    │   │   │           └── <simple_expression>
+    │   │   │               └── <term>
+    │   │   │                   ├── <factor>
+    │   │   │                   │   └── IDENTIFIER(i)
+    │   │   │                   ├── MULTIPLICATIVE_OPERATOR(*)
+    │   │   │                   └── <factor>
+    │   │   │                       └── NUMBER(2)
+    │   │   ├── SEMICOLON(;)
+    │   │   ├── <procedure/function-call>
+    │   │   │   ├── IDENTIFIER(write)
+    │   │   │   ├── LPAREN(()
+    │   │   │   ├── <parameter_list>
+    │   │   │   │   └── <expression>
+    │   │   │   │       └── <simple_expression>
+    │   │   │   │           └── <term>
+    │   │   │   │               └── <factor>
+    │   │   │   │                   └── IDENTIFIER(a)
+    │   │   │   └── RPAREN())
+    │   │   └── SEMICOLON(;)
+    │   └── KEYWORD(selesai)
+    └── DOT(.)

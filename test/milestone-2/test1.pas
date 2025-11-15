@@ -6,6 +6,9 @@ konstanta
 
 tipe
     age = integer;
+    ScoreList = larik[1..30] dari char;
+    test_range = 2..30;
+    TRecord = rekaman x : integer; y : real; selesai;
 
 variabel
     a, b: integer;
@@ -49,7 +52,7 @@ mulai
         write(b);
 
     idx := 0;
-    selama idx < 3 lakukan
+    selama (idx < 3) dan (idx > 0) lakukan
     mulai
         idx := idx + 1;
         write(idx);

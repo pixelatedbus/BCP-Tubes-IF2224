@@ -1,0 +1,168 @@
+<program>
+    ├── <program_header>
+    │   ├── KEYWORD(program)
+    │   ├── IDENTIFIER(test3)
+    │   └── SEMICOLON(;)
+    ├── <declaration-part>
+    │   └── <var_declaration>
+    │       ├── KEYWORD(variabel)
+    │       ├── <identifier_list>
+    │       │   ├── IDENTIFIER(x)
+    │       │   ├── COMMA(,)
+    │       │   └── IDENTIFIER(i)
+    │       ├── COLON(:)
+    │       ├── <type>
+    │       │   └── KEYWORD(integer)
+    │       ├── SEMICOLON(;)
+    │       ├── <identifier_list>
+    │       │   └── IDENTIFIER(ok)
+    │       ├── COLON(:)
+    │       ├── <type>
+    │       │   └── KEYWORD(boolean)
+    │       └── SEMICOLON(;)
+    ├── <compound-statement>
+    │   ├── KEYWORD(mulai)
+    │   ├── <statement-list>
+    │   │   ├── <assignment-statement>
+    │   │   │   ├── IDENTIFIER(x)
+    │   │   │   ├── ASSIGN_OPERATOR(:=)
+    │   │   │   └── <expression>
+    │   │   │       └── <simple_expression>
+    │   │   │           └── <term>
+    │   │   │               └── <factor>
+    │   │   │                   └── NUMBER(5)
+    │   │   ├── SEMICOLON(;)
+    │   │   ├── <assignment-statement>
+    │   │   │   ├── IDENTIFIER(ok)
+    │   │   │   ├── ASSIGN_OPERATOR(:=)
+    │   │   │   └── <expression>
+    │   │   │       └── <simple_expression>
+    │   │   │           └── <term>
+    │   │   │               └── <factor>
+    │   │   │                   ├── LOGICAL_OPERATOR(tidak)
+    │   │   │                   └── <factor>
+    │   │   │                       ├── LPAREN(()
+    │   │   │                       ├── <expression>
+    │   │   │                       │   ├── <simple_expression>
+    │   │   │                       │   │   └── <term>
+    │   │   │                       │   │       └── <factor>
+    │   │   │                       │   │           └── IDENTIFIER(x)
+    │   │   │                       │   ├── <relational_operator>
+    │   │   │                       │   │   └── RELATIONAL_OPERATOR(=)
+    │   │   │                       │   └── <simple_expression>
+    │   │   │                       │       └── <term>
+    │   │   │                       │           └── <factor>
+    │   │   │                       │               └── NUMBER(3)
+    │   │   │                       └── RPAREN())
+    │   │   ├── SEMICOLON(;)
+    │   │   ├── <if-statement>
+    │   │   │   ├── KEYWORD(jika)
+    │   │   │   ├── <expression>
+    │   │   │   │   └── <simple_expression>
+    │   │   │   │       └── <term>
+    │   │   │   │           └── <factor>
+    │   │   │   │               └── IDENTIFIER(ok)
+    │   │   │   ├── KEYWORD(maka)
+    │   │   │   ├── <procedure/function-call>
+    │   │   │   │   ├── IDENTIFIER(write)
+    │   │   │   │   ├── LPAREN(()
+    │   │   │   │   ├── <parameter_list>
+    │   │   │   │   │   └── <expression>
+    │   │   │   │   │       └── <simple_expression>
+    │   │   │   │   │           └── <term>
+    │   │   │   │   │               └── <factor>
+    │   │   │   │   │                   └── IDENTIFIER(x)
+    │   │   │   │   └── RPAREN())
+    │   │   │   ├── KEYWORD(selain_itu)
+    │   │   │   └── <procedure/function-call>
+    │   │   │       ├── IDENTIFIER(write)
+    │   │   │       ├── LPAREN(()
+    │   │   │       ├── <parameter_list>
+    │   │   │       │   └── <expression>
+    │   │   │       │       └── <simple_expression>
+    │   │   │       │           └── <term>
+    │   │   │       │               └── <factor>
+    │   │   │       │                   └── NUMBER(0)
+    │   │   │       └── RPAREN())
+    │   │   ├── SEMICOLON(;)
+    │   │   ├── <assignment-statement>
+    │   │   │   ├── IDENTIFIER(i)
+    │   │   │   ├── ASSIGN_OPERATOR(:=)
+    │   │   │   └── <expression>
+    │   │   │       └── <simple_expression>
+    │   │   │           └── <term>
+    │   │   │               └── <factor>
+    │   │   │                   └── NUMBER(1)
+    │   │   ├── SEMICOLON(;)
+    │   │   ├── <while_statement>
+    │   │   │   ├── KEYWORD(selama)
+    │   │   │   ├── <expression>
+    │   │   │   │   ├── <simple_expression>
+    │   │   │   │   │   └── <term>
+    │   │   │   │   │       └── <factor>
+    │   │   │   │   │           └── IDENTIFIER(i)
+    │   │   │   │   ├── <relational_operator>
+    │   │   │   │   │   └── RELATIONAL_OPERATOR(<)
+    │   │   │   │   └── <simple_expression>
+    │   │   │   │       └── <term>
+    │   │   │   │           └── <factor>
+    │   │   │   │               └── NUMBER(4)
+    │   │   │   ├── KEYWORD(lakukan)
+    │   │   │   └── <compound-statement>
+    │   │   │       ├── KEYWORD(mulai)
+    │   │   │       ├── <statement-list>
+    │   │   │       │   ├── <procedure/function-call>
+    │   │   │       │   │   ├── IDENTIFIER(write)
+    │   │   │       │   │   ├── LPAREN(()
+    │   │   │       │   │   ├── <parameter_list>
+    │   │   │       │   │   │   └── <expression>
+    │   │   │       │   │   │       └── <simple_expression>
+    │   │   │       │   │   │           └── <term>
+    │   │   │       │   │   │               └── <factor>
+    │   │   │       │   │   │                   └── IDENTIFIER(i)
+    │   │   │       │   │   └── RPAREN())
+    │   │   │       │   ├── SEMICOLON(;)
+    │   │   │       │   ├── <assignment-statement>
+    │   │   │       │   │   ├── IDENTIFIER(i)
+    │   │   │       │   │   ├── ASSIGN_OPERATOR(:=)
+    │   │   │       │   │   └── <expression>
+    │   │   │       │   │       └── <simple_expression>
+    │   │   │       │   │           ├── <term>
+    │   │   │       │   │           │   └── <factor>
+    │   │   │       │   │           │       └── IDENTIFIER(i)
+    │   │   │       │   │           ├── ARITHMETIC_OPERATOR(+)
+    │   │   │       │   │           └── <term>
+    │   │   │       │   │               └── <factor>
+    │   │   │       │   │                   └── NUMBER(1)
+    │   │   │       │   └── SEMICOLON(;)
+    │   │   │       └── KEYWORD(selesai)
+    │   │   ├── SEMICOLON(;)
+    │   │   ├── <for_statement>
+    │   │   │   ├── KEYWORD(untuk)
+    │   │   │   ├── IDENTIFIER(i)
+    │   │   │   ├── ASSIGN_OPERATOR(:=)
+    │   │   │   ├── <expression>
+    │   │   │   │   └── <simple_expression>
+    │   │   │   │       └── <term>
+    │   │   │   │           └── <factor>
+    │   │   │   │               └── NUMBER(1)
+    │   │   │   ├── KEYWORD(ke)
+    │   │   │   ├── <expression>
+    │   │   │   │   └── <simple_expression>
+    │   │   │   │       └── <term>
+    │   │   │   │           └── <factor>
+    │   │   │   │               └── NUMBER(3)
+    │   │   │   ├── KEYWORD(lakukan)
+    │   │   │   └── <procedure/function-call>
+    │   │   │       ├── IDENTIFIER(write)
+    │   │   │       ├── LPAREN(()
+    │   │   │       ├── <parameter_list>
+    │   │   │       │   └── <expression>
+    │   │   │       │       └── <simple_expression>
+    │   │   │       │           └── <term>
+    │   │   │       │               └── <factor>
+    │   │   │       │                   └── IDENTIFIER(i)
+    │   │   │       └── RPAREN())
+    │   │   └── SEMICOLON(;)
+    │   └── KEYWORD(selesai)
+    └── DOT(.)

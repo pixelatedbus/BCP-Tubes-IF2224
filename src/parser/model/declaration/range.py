@@ -7,7 +7,7 @@ def parse_range(parser):
 
     range_node.add_child(expression_node)
 
-    token = parser.current_node()
+    token = parser.current_token()
 
     if token[0] == 'RANGE_OPERATOR' and token[1] == '..':
         range_node.add_child(ParseNode('RANGE_OPERATOR(..)'))

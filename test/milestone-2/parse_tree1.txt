@@ -28,6 +28,59 @@
     │   │   ├── RELATIONAL_OPERATOR(=)
     │   │   ├── <simple_type>
     │   │   │   └── KEYWORD(integer)
+    │   │   ├── SEMICOLON(;)
+    │   │   ├── IDENTIFIER(scorelist)
+    │   │   ├── RELATIONAL_OPERATOR(=)
+    │   │   ├── <array_type>
+    │   │   │   ├── KEYWORD(larik)
+    │   │   │   ├── LBRACKET([)
+    │   │   │   ├── <range>
+    │   │   │   │   ├── <expression>
+    │   │   │   │   │   └── <simple_expression>
+    │   │   │   │   │       └── <term>
+    │   │   │   │   │           └── <factor>
+    │   │   │   │   │               └── NUMBER(1)
+    │   │   │   │   ├── RANGE_OPERATOR(..)
+    │   │   │   │   └── <expression>
+    │   │   │   │       └── <simple_expression>
+    │   │   │   │           └── <term>
+    │   │   │   │               └── <factor>
+    │   │   │   │                   └── NUMBER(30)
+    │   │   │   ├── RBRACKET(])
+    │   │   │   ├── KEYWORD(dari)
+    │   │   │   └── <type>
+    │   │   │       └── KEYWORD(char)
+    │   │   ├── SEMICOLON(;)
+    │   │   ├── IDENTIFIER(test_range)
+    │   │   ├── RELATIONAL_OPERATOR(=)
+    │   │   ├── <range_type>
+    │   │   │   ├── <expression>
+    │   │   │   │   └── <simple_expression>
+    │   │   │   │       └── <term>
+    │   │   │   │           └── <factor>
+    │   │   │   │               └── NUMBER(2)
+    │   │   │   ├── RANGE(..)
+    │   │   │   └── <expression>
+    │   │   │       └── <simple_expression>
+    │   │   │           └── <term>
+    │   │   │               └── <factor>
+    │   │   │                   └── NUMBER(30)
+    │   │   ├── SEMICOLON(;)
+    │   │   ├── IDENTIFIER(trecord)
+    │   │   ├── RELATIONAL_OPERATOR(=)
+    │   │   ├── <record_type>
+    │   │   │   ├── KEYWORD(rekaman)
+    │   │   │   ├── IDENTIFIER(x)
+    │   │   │   ├── COLON(:)
+    │   │   │   ├── <simple_type>
+    │   │   │   │   └── KEYWORD(integer)
+    │   │   │   ├── SEMICOLON(;)
+    │   │   │   ├── IDENTIFIER(y)
+    │   │   │   ├── COLON(:)
+    │   │   │   ├── <simple_type>
+    │   │   │   │   └── KEYWORD(real)
+    │   │   │   ├── SEMICOLON(;)
+    │   │   │   └── KEYWORD(selesai)
     │   │   └── SEMICOLON(;)
     │   ├── <var_declaration>
     │   │   ├── KEYWORD(variabel)
@@ -319,16 +372,37 @@
     │   │   ├── <while_statement>
     │   │   │   ├── KEYWORD(selama)
     │   │   │   ├── <expression>
-    │   │   │   │   ├── <simple_expression>
-    │   │   │   │   │   └── <term>
-    │   │   │   │   │       └── <factor>
-    │   │   │   │   │           └── IDENTIFIER(idx)
-    │   │   │   │   ├── <relational_operator>
-    │   │   │   │   │   └── RELATIONAL_OPERATOR(<)
     │   │   │   │   └── <simple_expression>
     │   │   │   │       └── <term>
+    │   │   │   │           ├── <factor>
+    │   │   │   │           │   ├── LPAREN(()
+    │   │   │   │           │   ├── <expression>
+    │   │   │   │           │   │   ├── <simple_expression>
+    │   │   │   │           │   │   │   └── <term>
+    │   │   │   │           │   │   │       └── <factor>
+    │   │   │   │           │   │   │           └── IDENTIFIER(idx)
+    │   │   │   │           │   │   ├── <relational_operator>
+    │   │   │   │           │   │   │   └── RELATIONAL_OPERATOR(<)
+    │   │   │   │           │   │   └── <simple_expression>
+    │   │   │   │           │   │       └── <term>
+    │   │   │   │           │   │           └── <factor>
+    │   │   │   │           │   │               └── NUMBER(3)
+    │   │   │   │           │   └── RPAREN())
+    │   │   │   │           ├── MULTIPLICATIVE_OPERATOR(dan)
     │   │   │   │           └── <factor>
-    │   │   │   │               └── NUMBER(3)
+    │   │   │   │               ├── LPAREN(()
+    │   │   │   │               ├── <expression>
+    │   │   │   │               │   ├── <simple_expression>
+    │   │   │   │               │   │   └── <term>
+    │   │   │   │               │   │       └── <factor>
+    │   │   │   │               │   │           └── IDENTIFIER(idx)
+    │   │   │   │               │   ├── <relational_operator>
+    │   │   │   │               │   │   └── RELATIONAL_OPERATOR(>)
+    │   │   │   │               │   └── <simple_expression>
+    │   │   │   │               │       └── <term>
+    │   │   │   │               │           └── <factor>
+    │   │   │   │               │               └── NUMBER(0)
+    │   │   │   │               └── RPAREN())
     │   │   │   ├── KEYWORD(lakukan)
     │   │   │   └── <compound-statement>
     │   │   │       ├── KEYWORD(mulai)

@@ -42,6 +42,8 @@ class RuleReader:
                 else:
                     state_machine.add_transition(state, input_char, next_state)
         
+        # test
+        
         return state_machine
     
 # if __name__ == "__main__":

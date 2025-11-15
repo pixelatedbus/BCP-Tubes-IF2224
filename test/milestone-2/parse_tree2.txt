@@ -1,0 +1,120 @@
+<program>
+    ├── <program_header>
+    │   ├── KEYWORD(program)
+    │   ├── IDENTIFIER(testdeklarasi)
+    │   └── SEMICOLON(;)
+    ├── <declaration-part>
+    │   ├── <type_declaration>
+    │   │   ├── KEYWORD(tipe)
+    │   │   ├── IDENTIFIER(age)
+    │   │   ├── RELATIONAL_OPERATOR(=)
+    │   │   ├── <simple_type>
+    │   │   │   └── KEYWORD(integer)
+    │   │   ├── SEMICOLON(;)
+    │   │   ├── IDENTIFIER(score)
+    │   │   ├── RELATIONAL_OPERATOR(=)
+    │   │   ├── <array_type>
+    │   │   │   ├── KEYWORD(larik)
+    │   │   │   ├── LBRACKET([)
+    │   │   │   ├── <range>
+    │   │   │   │   ├── <expression>
+    │   │   │   │   │   └── <simple_expression>
+    │   │   │   │   │       └── <term>
+    │   │   │   │   │           └── <factor>
+    │   │   │   │   │               └── NUMBER(1)
+    │   │   │   │   ├── RANGE_OPERATOR(..)
+    │   │   │   │   └── <expression>
+    │   │   │   │       └── <simple_expression>
+    │   │   │   │           └── <term>
+    │   │   │   │               └── <factor>
+    │   │   │   │                   └── NUMBER(30)
+    │   │   │   ├── RBRACKET(])
+    │   │   │   ├── KEYWORD(dari)
+    │   │   │   └── <type>
+    │   │   │       └── KEYWORD(char)
+    │   │   ├── SEMICOLON(;)
+    │   │   ├── IDENTIFIER(test_range)
+    │   │   ├── RELATIONAL_OPERATOR(=)
+    │   │   ├── <range_type>
+    │   │   │   ├── <expression>
+    │   │   │   │   └── <simple_expression>
+    │   │   │   │       └── <term>
+    │   │   │   │           └── <factor>
+    │   │   │   │               └── NUMBER(2)
+    │   │   │   ├── RANGE(..)
+    │   │   │   └── <expression>
+    │   │   │       └── <simple_expression>
+    │   │   │           └── <term>
+    │   │   │               └── <factor>
+    │   │   │                   └── NUMBER(30)
+    │   │   ├── SEMICOLON(;)
+    │   │   ├── IDENTIFIER(record)
+    │   │   ├── RELATIONAL_OPERATOR(=)
+    │   │   ├── <record_type>
+    │   │   │   ├── KEYWORD(rekaman)
+    │   │   │   ├── IDENTIFIER(x)
+    │   │   │   ├── COLON(:)
+    │   │   │   ├── <simple_type>
+    │   │   │   │   └── KEYWORD(integer)
+    │   │   │   ├── SEMICOLON(;)
+    │   │   │   ├── IDENTIFIER(y)
+    │   │   │   ├── COLON(:)
+    │   │   │   ├── <simple_type>
+    │   │   │   │   └── KEYWORD(real)
+    │   │   │   ├── SEMICOLON(;)
+    │   │   │   └── KEYWORD(selesai)
+    │   │   └── SEMICOLON(;)
+    │   ├── <const_declaration>
+    │   │   ├── KEYWORD(konstanta)
+    │   │   ├── IDENTIFIER(pi)
+    │   │   ├── RELATIONAL_OPERATOR(=)
+    │   │   ├── <expression>
+    │   │   │   └── <simple_expression>
+    │   │   │       └── <term>
+    │   │   │           └── <factor>
+    │   │   │               └── NUMBER(314)
+    │   │   ├── SEMICOLON(;)
+    │   │   ├── IDENTIFIER(hello)
+    │   │   ├── RELATIONAL_OPERATOR(=)
+    │   │   ├── <expression>
+    │   │   │   └── <simple_expression>
+    │   │   │       └── <term>
+    │   │   │           └── <factor>
+    │   │   │               └── STRING_LITERAL('hi')
+    │   │   └── SEMICOLON(;)
+    │   └── <var_declaration>
+    │       ├── KEYWORD(variabel)
+    │       ├── <identifier_list>
+    │       │   ├── IDENTIFIER(a)
+    │       │   ├── COMMA(,)
+    │       │   └── IDENTIFIER(b)
+    │       ├── COLON(:)
+    │       ├── <type>
+    │       │   └── KEYWORD(integer)
+    │       ├── SEMICOLON(;)
+    │       ├── <identifier_list>
+    │       │   └── IDENTIFIER(c)
+    │       ├── COLON(:)
+    │       ├── <type>
+    │       │   └── KEYWORD(char)
+    │       ├── SEMICOLON(;)
+    │       ├── <identifier_list>
+    │       │   └── IDENTIFIER(flag)
+    │       ├── COLON(:)
+    │       ├── <type>
+    │       │   └── KEYWORD(boolean)
+    │       └── SEMICOLON(;)
+    ├── <compound-statement>
+    │   ├── KEYWORD(mulai)
+    │   ├── <statement-list>
+    │   │   ├── <assignment-statement>
+    │   │   │   ├── IDENTIFIER(aw)
+    │   │   │   ├── ASSIGN_OPERATOR(:=)
+    │   │   │   └── <expression>
+    │   │   │       └── <simple_expression>
+    │   │   │           └── <term>
+    │   │   │               └── <factor>
+    │   │   │                   └── NUMBER(1)
+    │   │   └── SEMICOLON(;)
+    │   └── KEYWORD(selesai)
+    └── DOT(.)

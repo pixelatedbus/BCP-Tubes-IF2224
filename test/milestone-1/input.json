@@ -25,7 +25,8 @@
     "less_equal": "RELATIONAL_OPERATOR",
     "greater_than": "RELATIONAL_OPERATOR",
     "greater_equal": "RELATIONAL_OPERATOR",
-    "not_equal": "RELATIONAL_OPERATOR"
+    "not_equal": "RELATIONAL_OPERATOR",
+    "range": "RANGE_OPERATOR"
   },
   
   "keywords": {
