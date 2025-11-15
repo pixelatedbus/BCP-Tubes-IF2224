@@ -51,6 +51,8 @@ class DeclarationParser():
         return parse_procedure_declaration(self.parent)
 
     def parse_formal_parameter_list(self):
-        # Placeholder for formal parameter list parsing logic
-        pass
+        return parse_formal_parameter_list(self.parent)
+
+    def parse_parameter_group(self):
+        return parse_parameter_group(self.parent)
 
