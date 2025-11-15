@@ -27,6 +27,6 @@ def parse_simple_expression(parser):
             term_node = parser.expression_parser.parse_term()
             simple_expr_node.add_child(term_node)
         else:
-            raise SyntaxError("Unexpected token in simple expression")
+            break
     
     return simple_expr_node

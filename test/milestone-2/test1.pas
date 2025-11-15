@@ -5,83 +5,59 @@ konstanta
     hello = 'hi';
 
 tipe
-    age = integer;            
-    realArray = array[1..10] of real;
-    point = record            
-        x: integer;
-        y: integer;
-    end;
+    age = integer;
 
 variabel
-    a, b: integer;            
-    p: point;                 
-    arr: realArray;           
+    a, b: integer;
     c: char;
-    s: string;
     flag: boolean;
     idx: integer;
 
-procedure PrintPoint(pt: point);
-begin
-    write(pt.x);
-    write(' ');
-    write(pt.y);
-end;
-
-function AddThree(x, y: integer; z: real): real;
-var
+fungsi AddThree(x, y: integer; z: real): real;
+variabel
     temp: real;
-begin
+mulai
     temp := x + y + z;
     AddThree := temp;
-end;
+selesai;
 
-procedure Outer(u: integer);
+prosedur Outer(u: integer);
 
-    var
+    variabel
         localA: integer;
 
-    procedure Inner(v: integer);
-    begin
+    prosedur Inner(v: integer);
+    mulai
         localA := u + v;
         write(localA);
-    end;
+    selesai;
 
-begin
+mulai
     localA := u * 2;
     Inner(localA);
-end;
+selesai;
 
-begin
+mulai
     a := 5;
     b := 10;
     c := 'Z';
-    s := 'test';
-    flag := tidak (a > 3);             
-    arr[1] := 3.14;
+    flag := tidak (a > 3);
 
-    p.x := a;
-    p.y := b;
-
-    if a < b then
+    jika a < b maka
         write(a)
-    else
+    selain_itu
         write(b);
 
     idx := 0;
-    while idx < 3 do
-    begin
+    selama idx < 3 lakukan
+    mulai
         idx := idx + 1;
         write(idx);
-    end;
+    selesai;
 
 
-    for idx := 1 to 3 do
+    untuk idx := 1 ke 3 lakukan
         write(idx);
-
-    arr[2] := AddThree(1, 2, 3.5);
-
-    PrintPoint(p);
 
     Outer(7);
 
@@ -89,4 +65,4 @@ begin
 
     flag := (a < b) dan tidak (b = 10) atau (a = 5);
 
-end.
+selesai.

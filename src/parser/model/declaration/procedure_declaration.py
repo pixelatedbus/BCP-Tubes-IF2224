@@ -3,7 +3,7 @@ from ..node import ParseNode
 def parse_procedure_declaration(parser):
     procedure_declaration_node = ParseNode("<procedure-declaration>")
 
-    parser.check_token("KEYWORD", "procedure")
+    parser.check_token("KEYWORD", "prosedur")
     procedure_declaration_node.add_child(ParseNode("KEYWORD(prosedur)"))
 
     identifier = parser.check_token("IDENTIFIER")
@@ -20,7 +20,7 @@ def parse_procedure_declaration(parser):
     declaration_node = parser.declaration_parser.parse_declarations()
     procedure_declaration_node.add_child(declaration_node)
 
-    statement_node = parser.statement_parser.parse_statements()
+    statement_node = parser.statement_parser.parse_statement()
     procedure_declaration_node.add_child(statement_node)
 
     parser.check_token("SEMICOLON")

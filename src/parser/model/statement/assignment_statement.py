@@ -6,8 +6,8 @@ def parse_assignment_statement(parser):
     identifier = parser.check_token("IDENTIFIER")
     assignment_node.add_child(ParseNode(f"IDENTIFIER({identifier[1]})"))
 
-    assignment_operator = parser.check_token("ASSIGNMENT_OPERATOR", ":=")
-    assignment_node.add_child(ParseNode(f"ASSIGNMENT_OPERATOR({assignment_operator[1]})"))
+    assignment_operator = parser.check_token("ASSIGN_OPERATOR", ":=")
+    assignment_node.add_child(ParseNode(f"ASSIGN_OPERATOR({assignment_operator[1]})"))
 
     expression_node = parser.expression_parser.parse_expression()
     assignment_node.add_child(expression_node)

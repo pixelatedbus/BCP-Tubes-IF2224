@@ -33,7 +33,7 @@ class Parser():
         
         token_type, token_value = token
         if token_type != expected_type:
-            raise SyntaxError(f"Expected token type {expected_type}, got {token_type}")
+            raise SyntaxError(f"Expected token type {expected_type} (value: {expected_value}), got {token_type}({token_value}) at position {self.position}")
         if expected_value and token_value != expected_value:
             raise SyntaxError(f"Expected token value {expected_value}, got {token_value}")
         

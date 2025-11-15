@@ -12,15 +12,15 @@ def parse_if_statement(parser):
     parser.check_token("KEYWORD", "maka")
     if_statement_node.add_child(ParseNode("KEYWORD(maka)"))
 
-    statement_node = parser.statement_parser.parse_statement()
+    statement_node = parser.statement_parser.parse_single_statement()
     if_statement_node.add_child(statement_node)
 
     token = parser.current_token()
-    if token and token[0] == "KEYWORD" and token[1] == "selain-itu":
-        parser.check_token("KEYWORD", "selain-itu")
-        if_statement_node.add_child(ParseNode("KEYWORD(selain-itu)"))
+    if token and token[0] == "KEYWORD" and token[1] == "selain_itu":
+        parser.check_token("KEYWORD", "selain_itu")
+        if_statement_node.add_child(ParseNode("KEYWORD(selain_itu)"))
 
-        else_statement_node = parser.statement_parser.parse_statement()
+        else_statement_node = parser.statement_parser.parse_single_statement()
         if_statement_node.add_child(else_statement_node)
 
     return if_statement_node

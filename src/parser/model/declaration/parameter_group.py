@@ -3,8 +3,8 @@ from ..node import ParseNode
 def parse_parameter_group(parser):
     parameter_group_node = ParseNode("<parameter-group>")
 
-    parameter_list_node = parser.statement_parser.parse_parameter_list()
-    parameter_group_node.add_child(parameter_list_node)
+    identifier_list_node = parser.declaration_parser.parse_identifier_list()
+    parameter_group_node.add_child(identifier_list_node)
 
     parser.check_token("COLON", ":")
     parameter_group_node.add_child(ParseNode("COLON(:)"))

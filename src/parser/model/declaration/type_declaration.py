@@ -25,9 +25,12 @@ def parse_type_declaration(parser):
         type_decl_node.add_child(type_keyword_node)
         parser.advance()
         
-        # Parse identifier (type name)
-        token = parser.current_token()
-        if token and token[0] == "IDENTIFIER":
+        # Loop untuk parse multiple type declarations
+        while True:
+            token = parser.current_token()
+            if not token or token[0] != "IDENTIFIER":
+                break
+                
             identifier_node = ParseNode(f"IDENTIFIER({token[1]})")
             type_decl_node.add_child(identifier_node)
             parser.advance()
@@ -49,12 +52,11 @@ def parse_type_declaration(parser):
                     semicolon_node = ParseNode(f"SEMICOLON({token[1]})")
                     type_decl_node.add_child(semicolon_node)
                     parser.advance()
-                    return type_decl_node
                 else:
                     raise SyntaxError(f"Expected ';' after type declaration, got {token}")
             else:
                 raise SyntaxError(f"Expected '=' in type declaration, got {token}")
-        else:
-            raise SyntaxError(f"Expected identifier in type declaration, got {token}")
+                
+        return type_decl_node
     else:
         raise SyntaxError(f"Expected 'tipe' keyword, got {token}")

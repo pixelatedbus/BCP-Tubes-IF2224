@@ -3,7 +3,7 @@ from ..node import ParseNode
 def parse_function_declaration(parser):
     function_declaration_node = ParseNode("<function-declaration>")
 
-    parser.check_token("KEYWORD", "function")
+    parser.check_token("KEYWORD", "fungsi")
     function_declaration_node.add_child(ParseNode("KEYWORD(fungsi)"))
 
     identifier = parser.check_token("IDENTIFIER")
@@ -26,7 +26,7 @@ def parse_function_declaration(parser):
     declaration_node = parser.declaration_parser.parse_declarations()
     function_declaration_node.add_child(declaration_node)
 
-    statement_node = parser.statement_parser.parse_statements()
+    statement_node = parser.statement_parser.parse_statement()
     function_declaration_node.add_child(statement_node)
 
     parser.check_token("SEMICOLON")

@@ -23,7 +23,7 @@ def parse_while_statement(parser):
     else:
         raise SyntaxError(f"Expected 'lakukan' keyword, got {token}")
     
-    statement_node = parser.statement_parser.parse_statement()
+    statement_node = parser.statement_parser.parse_single_statement()
     while_node.add_child(statement_node)
     
     return while_node

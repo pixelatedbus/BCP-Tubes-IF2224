@@ -22,6 +22,6 @@ def parse_term(parser):
             factor_node = parser.expression_parser.parse_factor()
             term_node.add_child(factor_node)
         else:
-            raise SyntaxError(f"Unexpected token in term: {token}")
+            break
     
     return term_node

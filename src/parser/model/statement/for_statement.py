@@ -50,7 +50,7 @@ def parse_for_statement(parser):
     else:
         raise SyntaxError(f"Expected 'lakukan' keyword in for statement, got {token}")
     
-    statement_node = parser.statement_parser.parse_statement()
+    statement_node = parser.statement_parser.parse_single_statement()
     for_node.add_child(statement_node)
     
     return for_node
