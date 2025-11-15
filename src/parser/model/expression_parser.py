@@ -1,3 +1,6 @@
+from src.parser.model.node import ParseNode
+from src.parser.model.expression.simple import parse_simple_expression
+
 class ExpressionParser():
     def __init__(self, parent):
         self.parent = parent
@@ -8,7 +11,7 @@ class ExpressionParser():
 
     def parse_simple_expression(self):
         # Placeholder for simple expression parsing logic
-        pass
+        return parse_simple_expression(self.parent)
 
     def parse_term(self):
         # Placeholder for term parsing logic
