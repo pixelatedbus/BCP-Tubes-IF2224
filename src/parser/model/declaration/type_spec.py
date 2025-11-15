@@ -1,17 +1,3 @@
-"""Type specification parsing untuk Pascal Indonesia
-
-Ini adalah definisi tipe itu sendiri (bukan deklarasi tipe)
-
-Grammar:
-    type_spec -> simple_type | range_type | array_type | record_type | identifier
-    simple_type -> integer | real | boolean | char
-    range_type -> expression .. expression
-    array_type -> larik [index_range] dari type_spec
-    index_range -> expression .. expression
-    record_type -> rekaman field_list selesai
-    field_list -> var_declaration {var_declaration}
-"""
-
 from ..node import ParseNode
 
 
