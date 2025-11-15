@@ -1,8 +1,6 @@
 from ..node import ParseNode
-from range import parse_range
-from type import parse_type
 
-def parse_type(parser):
+def parse_array_type(parser):
     array_type_node = ParseNode('<array_type>')
     
     token = parser.current_token()
@@ -16,7 +14,7 @@ def parse_type(parser):
         parser.advance()
         token = parser.current_token()
 
-    array_type_node.add_child(parse_range(parser))
+    array_type_node.add_child(parser.declaration_parser.parse_range())
     token = parser.current_token()
 
     if token[0] == 'RBRACKET' and token[1] == ']':
@@ -28,6 +26,6 @@ def parse_type(parser):
         parser.advance()
         token = parser.current_token()
 
-    array_type_node.add_child(parse_type(parser))        
+    array_type_node.add_child(parser.declaration_parser.parse_type())        
 
     return array_type_node

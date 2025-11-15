@@ -25,9 +25,12 @@ def main():
         ("KEYWORD", "program"),
         ("IDENTIFIER", "TestProgram"),
         ("SEMICOLON", ";"),
+        ("KEYWORD", "variabel"),
         ("IDENTIFIER", "a"),
-        ("ARITHMETIC_OPERATOR", "+"),
-        ("NUMBER", "10"),
+        ("COMMA", ","),
+        ("IDENTIFIER", "b"),
+        ("COLON", ":"),
+        ("KEYWORD", "integer"),
         ("SEMICOLON", ";"),
         ("DOT", ".")
     ]   

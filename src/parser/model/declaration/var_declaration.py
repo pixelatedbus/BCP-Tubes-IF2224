@@ -9,7 +9,7 @@ def parse_var_declaration(parser):
         var_decl_node.add_child(var_keyword_node)
         parser.advance()
         
-        identifier_list_node = parser.declaration_parser.parse_identifier_list(parser)
+        identifier_list_node = parser.declaration_parser.parse_identifier_list()
         var_decl_node.add_child(identifier_list_node)
         
         token = parser.current_token()
