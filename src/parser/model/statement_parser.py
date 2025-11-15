@@ -1,3 +1,8 @@
+from .node import ParseNode
+from .statement.while_statement import parse_while_statement
+from .statement.for_statement import parse_for_statement
+    
+
 class StatementParser():
     def __init__(self, parent):
         self.parent = parent
@@ -19,12 +24,10 @@ class StatementParser():
         pass
     
     def parse_while_statement(self):
-        # Placeholder for while statement parsing logic
-        pass
+        return parse_while_statement(self.parent)
 
     def parse_for_statement(self):
-        # Placeholder for for statement parsing logic
-        pass
+        return parse_for_statement(self.parent)
 
     def parse_function_call(self):
         # Placeholder for function call parsing logic
