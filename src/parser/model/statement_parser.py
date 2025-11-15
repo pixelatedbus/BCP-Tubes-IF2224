@@ -1,3 +1,7 @@
+from .statement.assignment_statement import parse_assignment_statement
+from .statement.if_statement import parse_if_statement
+from .statement.statement_list import parse_statement_list
+
 class StatementParser():
     def __init__(self, parent):
         self.parent = parent
@@ -7,16 +11,13 @@ class StatementParser():
         pass
 
     def parse_statement_list(self):
-        # Placeholder for statement list parsing logic
-        pass
+        return parse_statement_list(self.parent)
     
     def parse_assignment_statement(self):
-        # Placeholder for assignment statement parsing logic
-        pass
+        return parse_assignment_statement(self.parent)
 
     def parse_if_statement(self):
-        # Placeholder for if statement parsing logic
-        pass
+        return parse_if_statement(self.parent)
     
     def parse_while_statement(self):
         # Placeholder for while statement parsing logic
