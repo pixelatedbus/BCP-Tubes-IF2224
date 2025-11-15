@@ -23,6 +23,9 @@ def main():
     parser = Parser(automata.tokens)
     parse_tree = parser.parse_program()
     print(parse_tree)
+    output_dir = "test/milestone-2/"
+    parser_output_file = os.path.join(output_dir, "parse_tree.txt")
+    parse_tree.save_to_file(parser_output_file)
 
 if __name__ == "__main__":
     main()
