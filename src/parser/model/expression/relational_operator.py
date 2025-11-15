@@ -1,4 +1,4 @@
-from src.parser.model.node import ParseNode
+from ..node import ParseNode
 
 def parse_relational_operator(parser):
     relational_operator_node = ParseNode("<relational_operator>")

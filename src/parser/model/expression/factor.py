@@ -1,4 +1,4 @@
-from src.parser.model.node import ParseNode
+from ..node import ParseNode
 
 def parse_factor(parser):
     factor_node = ParseNode("<factor>")

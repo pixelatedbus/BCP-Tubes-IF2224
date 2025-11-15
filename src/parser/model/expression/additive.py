@@ -1,4 +1,4 @@
-from src.parser.model.node import ParseNode
+from ..node import ParseNode
 
 def parse_additive_expression(parent):
     token = parent.current_token()
