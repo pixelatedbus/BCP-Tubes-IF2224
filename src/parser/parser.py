@@ -19,6 +19,12 @@ class Parser():
     
     def advance(self):
         self.position += 1
+
+    def peek(self):
+        peek_position = self.position + 1
+        if peek_position < len(self.tokens):
+            return self.tokens[peek_position]
+        return None
     
     def check_token(self, expected_type, expected_value=None):
         token = self.current_token()
