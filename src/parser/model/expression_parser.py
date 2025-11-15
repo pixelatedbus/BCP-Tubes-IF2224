@@ -1,5 +1,6 @@
 from src.parser.model.node import ParseNode
 from src.parser.model.expression.simple import parse_simple_expression
+from src.parser.model.expression.term import parse_term
 
 class ExpressionParser():
     def __init__(self, parent):
@@ -10,12 +11,10 @@ class ExpressionParser():
         pass
 
     def parse_simple_expression(self):
-        # Placeholder for simple expression parsing logic
         return parse_simple_expression(self.parent)
 
     def parse_term(self):
-        # Placeholder for term parsing logic
-        pass
+        return parse_term(self.parent)
 
     def parse_factor(self):
         # Placeholder for factor parsing logic
