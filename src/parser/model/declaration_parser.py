@@ -1,3 +1,8 @@
+from .node import ParseNode
+from .declaration.formal_parameter_list import parse_formal_parameter_list
+from .declaration.parameter_group import parse_parameter_group
+from .declaration.function_declaration import parse_function_declaration
+from .declaration.procedure_declaration import parse_procedure_declaration
 from .declaration.const_declaration import parse_const_declaration
 from .declaration.type_declaration import parse_type_declaration
 from .declaration.var_declaration import parse_var_declaration
@@ -40,9 +45,12 @@ class DeclarationParser():
         pass
 
     def parse_function_declaration(self):
-        # Placeholder for function declaration parsing logic
-        pass
+        return parse_function_declaration(self.parent)
+
+    def parse_procedure_declaration(self):
+        return parse_procedure_declaration(self.parent)
 
     def parse_formal_parameter_list(self):
         # Placeholder for formal parameter list parsing logic
         pass
+
