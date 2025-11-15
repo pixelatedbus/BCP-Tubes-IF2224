@@ -1,3 +1,8 @@
+from .declaration.const_declaration import parse_const_declaration
+from .declaration.type_declaration import parse_type_declaration
+from .declaration.var_declaration import parse_var_declaration
+from .declaration.identifier_list import parse_identifier_list
+
 class DeclarationParser():
     def __init__(self, parent):
         self.parent = parent
@@ -7,20 +12,16 @@ class DeclarationParser():
         pass
 
     def parse_const_declaration(self):
-        # Placeholder for constant declaration parsing logic
-        pass
+        return parse_const_declaration(self.parent)
 
     def parse_type_declaration(self):
-        # Placeholder for type declaration parsing logic
-        pass
+        return parse_type_declaration(self.parent)
 
     def parse_var_declaration(self):
-        # Placeholder for variable declaration parsing logic
-        pass
+        return parse_var_declaration(self.parent)
 
     def parse_identifier_list(self):
-        # Placeholder for identifier list parsing logic
-        pass
+        return parse_identifier_list(self.parent)
 
     def parse_type(self):
         # Placeholder for type parsing logic
@@ -45,4 +46,3 @@ class DeclarationParser():
     def parse_formal_parameter_list(self):
         # Placeholder for formal parameter list parsing logic
         pass
-
