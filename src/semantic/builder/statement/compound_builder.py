@@ -17,7 +17,6 @@ def build_compound_statement(parse_node):
             statement_list_node = build_statement_list(child)
             break
     
-    # Create compound statement with the statement list
     compound_node = CompoundStatementNode("compound_statement")
     if statement_list_node:
         compound_node.add_child(statement_list_node)

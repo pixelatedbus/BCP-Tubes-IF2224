@@ -1,6 +1,7 @@
 import sys
 import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+from .statement_builder import build_statement
 
 from node_class.statement.if_statement import IfStatementNode
 from .helpers import extract_expression_node, find_child_by_name
@@ -30,15 +31,12 @@ def build_if_statement(parse_node):
         i += 1
     
     if i < len(children) and (children[i].name.startswith("<") or children[i].name.startswith("IDENTIFIER")):
-        # TODO: Replace with actual statement builder
-        then_body = children[i]
+        then_body = build_statement(children[i])
         i += 1
     
     if i < len(children) and children[i].name.startswith("KEYWORD") and "selain_itu" in children[i].name:
         i += 1
-        # Get else statement
         if i < len(children):
-            # TODO: Replace with actual statement builder
-            else_body = children[i]
+            else_body = build_statement(children[i])
     
     return IfStatementNode(condition, then_body, else_body)

@@ -4,6 +4,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
 
 from node_class.statement.assignment_statement_node import AssignmentStatementNode
 from .helpers import extract_identifier, extract_expression_node
+from ..expression.expression_builder import build_expression
 
 
 def build_assignment_statement(parse_node):
@@ -17,7 +18,6 @@ def build_assignment_statement(parse_node):
         if child.name.startswith("IDENTIFIER"):
             variable_name = extract_identifier(child)
         elif child.name == "<expression>":
-            # TODO: Replace with actual expression AST node builder
-            expression_node = extract_expression_node(child)
+            expression_node = build_expression(child)
     
     return AssignmentStatementNode(variable_name, expression_node)

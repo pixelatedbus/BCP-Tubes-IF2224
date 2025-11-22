@@ -1,6 +1,8 @@
 import sys
 import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+from .statement_builder import build_statement
+
 
 from node_class.statement.while_statement_node import WhileStatementNode
 from .helpers import extract_expression_node
@@ -27,9 +29,9 @@ def build_while_statement(parse_node):
     # Skip 'lakukan' 
     if i < len(children) and children[i].name.startswith("KEYWORD"):
         i += 1
+
     
     if i < len(children):
-        # TODO: Replace with actual statement builder
-        body = children[i]
+        body = build_statement(children[i])
     
     return WhileStatementNode(condition, body)
