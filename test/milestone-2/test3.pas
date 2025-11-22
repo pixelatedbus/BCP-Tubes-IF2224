@@ -21,6 +21,8 @@ mulai
     selesai;
 
     untuk i := 1 ke 3 lakukan
+    mulai
         write(i);
+    selesai;
 
 selesai.

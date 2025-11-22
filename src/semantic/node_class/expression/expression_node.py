@@ -19,7 +19,7 @@ class ExpressionNode(ASTNode):
         """Returns True if this is a comparison expression, False if just a simple expression."""
         return self.operator is not None
     
-    def __repr__(self):
+    def __str__(self):
         if self.is_comparison():
             return f"ExpressionNode({self.left_operand} {self.operator} {self.right_operand})"
         return f"ExpressionNode({self.left_operand})"

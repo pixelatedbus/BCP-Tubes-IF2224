@@ -11,5 +11,5 @@ class ParenthesizedExpressionNode(FactorNode):
         
         self.add_child(expression)
     
-    def __repr__(self):
+    def __str__(self):
         return f"ParenthesizedExpressionNode(({self.expression}))"

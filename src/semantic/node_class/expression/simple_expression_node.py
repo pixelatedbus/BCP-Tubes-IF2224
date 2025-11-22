@@ -27,7 +27,7 @@ class SimpleExpressionNode(ASTNode):
         """Returns True if this is a unary expression with a sign."""
         return self.sign is not None and len(self.terms) == 1
     
-    def __repr__(self):
+    def __str__(self):
         if self.is_unary():
             return f"SimpleExpressionNode({self.sign}{self.terms[0]})"
         

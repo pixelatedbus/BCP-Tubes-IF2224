@@ -9,8 +9,11 @@ class ForStatementNode(ASTNode):
         self.end = end
         self.body = body
 
-    def __repr__(self):
-        return f"ForStatement Node(variable={self.variable}, start={self.start}, end={self.end}, body={self.body})"
+        if body:
+            self.add_child(body)
+
+    def __str__(self):
+        return f"ForStatement Node(variable={self.variable}, start={self.start}, end={self.end})"
 
     def evaluate(self):
         print("Evaluating ForStatement Node")

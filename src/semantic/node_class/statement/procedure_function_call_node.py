@@ -6,8 +6,9 @@ class procedureFunctionCallNode(ASTNode):
         self.name = name
         self.arguments = arguments
 
-    def __repr__(self):
-        return f"ProcedureFunctionCall Node(name={self.name}, arguments={self.arguments})"
+    def __str__(self):
+        args_str = ', '.join(str(arg) for arg in self.arguments)
+        return f"ProcedureFunctionCall Node(name={self.name}, arguments=[{args_str}])"
 
     def evaluate(self):
         print("Evaluating ProcedureFunctionCall Node")

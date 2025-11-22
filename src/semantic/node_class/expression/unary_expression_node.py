@@ -12,5 +12,5 @@ class UnaryExpressionNode(FactorNode):
         
         self.add_child(operand)
     
-    def __repr__(self):
+    def __str__(self):
         return f"UnaryExpressionNode({self.operator} {self.operand})"

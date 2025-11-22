@@ -9,5 +9,5 @@ class IdentifierNode(FactorNode):
         super().__init__()
         self.name = name  # String: the identifier name
     
-    def __repr__(self):
+    def __str__(self):
         return f"IdentifierNode({self.name})"

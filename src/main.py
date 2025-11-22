@@ -1,6 +1,7 @@
 from lexer.rule_reader import RuleReader
 from lexer.automata import Automata
 from parser.parser import Parser
+from semantic.builder.ast_builder import build_ast
 import os
 def main():
     sm = RuleReader.from_file("test/milestone-1/input_indo.json")
@@ -15,7 +16,6 @@ def main():
     for char in test_code:
         automata.process_char(char)
     automata.finalize()
-    automata.print_tokens()
     for error in automata.errors:
         print("LEXICAL ERROR:", error)
     automata.save_tokens()
@@ -23,9 +23,11 @@ def main():
     parser = Parser(automata.tokens)
     parse_tree = parser.parse_program()
     print(parse_tree)
-    output_dir = "test/milestone-2/"
-    parser_output_file = os.path.join(output_dir, "parse_tree.txt")
-    parse_tree.save_to_file(parser_output_file)
+
+    print("\nAST:")
+    ast = build_ast(parse_tree)
+
+    ast.save_to_file("test/milestone-2/output_ast.txt")
 
 if __name__ == "__main__":
     main()

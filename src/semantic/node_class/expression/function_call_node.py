@@ -19,6 +19,6 @@ class FunctionCallNode(FactorNode):
         self.arguments.append(argument)
         self.add_child(argument)
     
-    def __repr__(self):
+    def __str__(self):
         args_str = ", ".join(str(arg) for arg in self.arguments)
         return f"FunctionCallNode({self.function_name}({args_str}))"

@@ -8,7 +8,7 @@ class ProcedureDeclNode(ASTNode):
         self.declarations = declarations if declarations else []  # Local declarations
         self.body = body  # Statement node (compound statement)
     
-    def __repr__(self):
+    def __str__(self):
         return f"ProcedureDecl Node(name={self.name}, params={len(self.parameters)}, decls={len(self.declarations)})"
     
     def evaluate(self):

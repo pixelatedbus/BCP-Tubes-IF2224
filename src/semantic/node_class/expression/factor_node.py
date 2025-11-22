@@ -8,5 +8,5 @@ class FactorNode(ASTNode):
     def __init__(self):
         super().__init__()
     
-    def __repr__(self):
+    def __str__(self):
         return "FactorNode(base)"

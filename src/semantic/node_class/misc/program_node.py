@@ -1,9 +1,9 @@
-from ast_node import ASTNode
+from .ast_node import ASTNode
 
 class ProgramNode(ASTNode):
-    def __init__(self, name, declarations, block):
+    def __init__(self, name):
         super().__init__()
         self.name = name
-        self.add_child(declarations)
-        self.add_child(block)
-
+    
+    def __str__(self):
+        return f"ProgramNode(name: {self.name})"

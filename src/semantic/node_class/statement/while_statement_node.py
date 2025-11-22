@@ -6,9 +6,12 @@ class WhileStatementNode(ASTNode):
         self.name = "while_statement"
         self.condition = condition
         self.body = body
+        
+        if body:
+            self.add_child(body)
 
-    def __repr__(self):
-        return f"WhileStatement Node(condition={self.condition}, body={self.body})"
+    def __str__(self):
+        return f"WhileStatement Node(condition={self.condition})"
 
     def evaluate(self):
         print("Evaluating WhileStatement Node")

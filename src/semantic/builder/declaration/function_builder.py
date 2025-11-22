@@ -7,7 +7,7 @@ from .helpers import extract_parameters, extract_type
 
 
 def build_function_declaration(parse_node):
-    from .declaration_builder import build_declaration_part
+    from .declaration_builder import build_declaration
     
     i = 0
     children = parse_node.children
@@ -38,7 +38,7 @@ def build_function_declaration(parse_node):
     
     declarations = []
     if i < len(children) and children[i].name == "<declaration-part>":
-        declarations = build_declaration_part(children[i])
+        declarations = build_declaration(children[i])
         i += 1
     
     body = None

@@ -6,7 +6,7 @@ class TypeDeclNode(ASTNode):
         self.name = name
         self.type_spec = type_spec  # Type specification (simple_type, range_type, etc.)
     
-    def __repr__(self):
+    def __str__(self):
         return f"TypeDecl Node(name={self.name}, type_spec={self.type_spec})"
     
     def evaluate(self):

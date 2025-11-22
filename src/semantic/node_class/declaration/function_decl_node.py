@@ -9,7 +9,7 @@ class FunctionDeclNode(ASTNode):
         self.declarations = declarations if declarations else []  # Local declarations
         self.body = body  # Statement node (compound statement)
     
-    def __repr__(self):
+    def __str__(self):
         return f"FunctionDecl Node(name={self.name}, params={len(self.parameters)}, return_type={self.return_type})"
     
     def evaluate(self):

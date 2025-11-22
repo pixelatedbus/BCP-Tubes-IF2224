@@ -7,7 +7,7 @@ class ParameterNode(ASTNode):
         self.param_type = param_type  # Parameter type (integer, real, etc.)
         self.is_var = is_var  # True if parameter is passed by reference (var)
     
-    def __repr__(self):
+    def __str__(self):
         var_str = "var " if self.is_var else ""
         return f"Parameter Node({var_str}{self.name}: {self.param_type})"
     

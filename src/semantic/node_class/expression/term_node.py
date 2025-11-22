@@ -26,7 +26,7 @@ class TermNode(ASTNode):
         """Returns True if this term contains only one factor."""
         return len(self.factors) == 1
     
-    def __repr__(self):
+    def __str__(self):
         if not self.factors:
             return "TermNode(empty)"
         

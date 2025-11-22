@@ -6,7 +6,7 @@ class ConstDeclNode(ASTNode):
         self.name = name
         self.value = value  # Expression node
     
-    def __repr__(self):
+    def __str__(self):
         return f"ConstDecl Node(name={self.name}, value={self.value})"
     
     def evaluate(self):

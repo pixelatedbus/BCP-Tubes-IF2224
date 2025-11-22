@@ -12,5 +12,5 @@ class ArrayAccessNode(FactorNode):
         
         self.add_child(index)
     
-    def __repr__(self):
+    def __str__(self):
         return f"ArrayAccessNode({self.array_name}[{self.index}])"

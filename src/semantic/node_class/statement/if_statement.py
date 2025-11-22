@@ -8,7 +8,7 @@ class IfStatementNode(ASTNode):
         self.ifbody = ifbody
         self.elsebody = elsebody
 
-    def __repr__(self):
+    def __str__(self):
         return f"If Statement Node(compare={self.compare}, ifbody={self.ifbody}, elsebody={self.elsebody})"
     
     def evaluate(self):

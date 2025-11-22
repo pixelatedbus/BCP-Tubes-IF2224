@@ -24,11 +24,3 @@ def find_child_by_name(parse_node, name):
 def find_children_by_name(parse_node, name):
     return [child for child in parse_node.children if child.name == name]
 
-
-def extract_expression_node(parse_node):
-    """
-    TODO: Implement proper expression builder
-    """
-    # For now, return the parse node itself
-    # This should be replaced with actual expression AST node builder
-    return parse_node

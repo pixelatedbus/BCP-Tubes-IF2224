@@ -1,0 +1,17 @@
+ProgramNode(name: loop)
+    ├── Declarations
+    │   ├── VarDecl Node(name=x, type=integer)
+    │   ├── VarDecl Node(name=i, type=integer)
+    │   └── VarDecl Node(name=ok, type=boolean)
+    └── Block
+        ├── AssignmentStatement Node(variable_name=x, value=ExpressionNode(SimpleExpressionNode(TermNode(NumberLiteral(5)))))
+        ├── AssignmentStatement Node(variable_name=ok, value=ExpressionNode(SimpleExpressionNode(TermNode(UnaryExpressionNode(tidak ParenthesizedExpressionNode((ExpressionNode(SimpleExpressionNode(TermNode(IdentifierNode(x))) = SimpleExpressionNode(TermNode(NumberLiteral(3)))))))))))
+        ├── If Statement Node(compare=ExpressionNode(SimpleExpressionNode(TermNode(IdentifierNode(ok)))), ifbody=ProcedureFunctionCall Node(name=write, arguments=[ExpressionNode(SimpleExpressionNode(TermNode(IdentifierNode(x))))]), elsebody=ProcedureFunctionCall Node(name=write, arguments=[ExpressionNode(SimpleExpressionNode(TermNode(NumberLiteral(0))))]))
+        ├── AssignmentStatement Node(variable_name=i, value=ExpressionNode(SimpleExpressionNode(TermNode(NumberLiteral(1)))))
+        ├── WhileStatement Node(condition=ExpressionNode(SimpleExpressionNode(TermNode(IdentifierNode(i))) < SimpleExpressionNode(TermNode(NumberLiteral(4)))))
+        │   └── Block
+        │       ├── ProcedureFunctionCall Node(name=write, arguments=[ExpressionNode(SimpleExpressionNode(TermNode(IdentifierNode(i))))])
+        │       └── AssignmentStatement Node(variable_name=i, value=ExpressionNode(SimpleExpressionNode(TermNode(IdentifierNode(i)) + TermNode(NumberLiteral(1)))))
+        └── ForStatement Node(variable=i, start=ExpressionNode(SimpleExpressionNode(TermNode(NumberLiteral(1)))), end=ExpressionNode(SimpleExpressionNode(TermNode(NumberLiteral(3)))))
+            └── Block
+                └── ProcedureFunctionCall Node(name=write, arguments=[ExpressionNode(SimpleExpressionNode(TermNode(IdentifierNode(i))))])

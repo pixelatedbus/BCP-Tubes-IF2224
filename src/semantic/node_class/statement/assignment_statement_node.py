@@ -6,7 +6,7 @@ class AssignmentStatementNode(ASTNode):
         self.variable_name = variable_name
         self.value = value
 
-    def __repr__(self):
+    def __str__(self):
         return f"AssignmentStatement Node(variable_name={self.variable_name}, value={self.value})"
 
     def evaluate(self):
