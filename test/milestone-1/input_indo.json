@@ -32,6 +32,7 @@
   "keywords": {
     "program": "KEYWORD",
     "variabel": "KEYWORD",
+    "var": "KEYWORD",
     "mulai": "KEYWORD",
     "selesai": "KEYWORD",
     "jika": "KEYWORD",
