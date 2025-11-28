@@ -41,6 +41,24 @@ def parse_factor(parser):
         return factor_node
     
     if token_type in ["NUMBER", "CHAR_LITERAL", "STRING_LITERAL"]:
+        # Check if NUMBER is followed by DOT and another NUMBER (floating-point literal)
+        # BEFORE consuming the NUMBER token
+        if token_type == "NUMBER":
+            next_token = parser.peek()
+            if next_token and next_token[0] == "DOT":
+                # Peek two tokens ahead to see if there's a NUMBER after the DOT
+                peek_pos = parser.position + 2
+                if peek_pos < len(parser.tokens):
+                    peek_token = parser.tokens[peek_pos]
+                    if peek_token[0] == "NUMBER":
+                        # This is a floating-point number: NUMBER DOT NUMBER
+                        parser.advance()  # consume NUMBER
+                        parser.advance()  # consume DOT
+                        parser.advance()  # consume second NUMBER
+                        float_value = f"{token_value}.{peek_token[1]}"
+                        factor_node.add_child(ParseNode(f"NUMBER({float_value})"))
+                        return factor_node
+        
         parser.check_token(token_type)
         factor_node.add_child(ParseNode(f"{token_type}({token_value})"))
         return factor_node

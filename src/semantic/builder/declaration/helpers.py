@@ -37,12 +37,57 @@ def extract_type_spec(parse_node):
         return "range"
     
     elif parse_node.name == "<array_type>":
-        return "array"
+        # Extract array bounds and element type
+        # Structure: larik[low..high] dari element_type
+        array_info = {"type": "array"}
+        
+        for child in parse_node.children:
+            if child.name == "<range>":
+                # Extract low and high bounds
+                bounds = extract_range_bounds(child)
+                array_info["low"] = bounds["low"]
+                array_info["high"] = bounds["high"]
+            elif child.name == "<type>":
+                # Extract element type
+                array_info["element_type"] = extract_type(child)
+        
+        return array_info
     
     elif parse_node.name == "<record_type>":
-        return "record"
+        # Extract record fields
+        fields = extract_record_fields(parse_node)
+        return {"type": "record", "fields": fields}
     
     return "unknown"
+
+
+def extract_range_bounds(range_node):
+    """Extract low and high bounds from <range> node"""
+    bounds = {"low": 0, "high": 0}
+    numbers = []
+    
+    def extract_number_from_node(node):
+        """Recursively extract numbers from node"""
+        if node.name.startswith("NUMBER"):
+            num_str = node.name.split("(")[1].rstrip(")")
+            return int(num_str)
+        # Numbers might be wrapped in expression nodes
+        for child in node.children:
+            num = extract_number_from_node(child)
+            if num is not None:
+                return num
+        return None
+    
+    for child in range_node.children:
+        num = extract_number_from_node(child)
+        if num is not None:
+            numbers.append(num)
+    
+    if len(numbers) >= 2:
+        bounds["low"] = numbers[0]
+        bounds["high"] = numbers[1]
+    
+    return bounds
 
 
 def extract_simple_value(parse_node):
@@ -97,3 +142,44 @@ def extract_parameters(parse_node):
                 parameters.append(param_node)
     
     return parameters
+
+
+def extract_record_fields(parse_node):
+    """Extract field declarations from <record_type> node"""
+    fields = []
+    i = 0
+    children = parse_node.children
+    
+    # Skip 'rekaman' keyword
+    if i < len(children) and children[i].name.startswith("KEYWORD"):
+        i += 1
+    
+    # Extract fields until 'selesai'
+    while i < len(children):
+        if children[i].name.startswith("KEYWORD") and "selesai" in children[i].name:
+            break
+        
+        # Field name
+        if children[i].name.startswith("IDENTIFIER"):
+            field_name = children[i].name.split("(")[1].rstrip(")")
+            i += 1
+            
+            # Skip colon
+            if i < len(children) and children[i].name.startswith("COLON"):
+                i += 1
+            
+            # Field type
+            field_type = "unknown"
+            if i < len(children) and children[i].name.startswith("<"):
+                field_type = extract_type_spec(children[i])
+                i += 1
+            
+            fields.append({"name": field_name, "type": field_type})
+            
+            # Skip semicolon
+            if i < len(children) and children[i].name.startswith("SEMICOLON"):
+                i += 1
+        else:
+            i += 1
+    
+    return fields
