@@ -23,6 +23,9 @@ def extract_type(parse_node):
         elif child.name.startswith("IDENTIFIER"):
             # User-defined type
             return child.name.split("(")[1].rstrip(")")
+        elif child.name.startswith("<"):
+            # Nested type spec (array, record, etc.)
+            return extract_type_spec(child)
     return "unknown"
 
 
@@ -32,6 +35,13 @@ def extract_type_spec(parse_node):
         for child in parse_node.children:
             if child.name.startswith("KEYWORD"):
                 return child.name.split("(")[1].rstrip(")")
+    
+    elif parse_node.name == "<custom_type>":
+        # User-defined type name
+        for child in parse_node.children:
+            if child.name.startswith("IDENTIFIER"):
+                return child.name.split("(")[1].rstrip(")")
+        return "unknown"
     
     elif parse_node.name == "<range_type>":
         return "range"

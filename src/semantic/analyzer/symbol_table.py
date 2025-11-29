@@ -219,9 +219,11 @@ class SymbolTable:
         Returns index of new entry
         """
         elsz = self.TYPE_SIZES.get(etyp, 1)
-        if eref > 0:  # Composite element type
-            if eref < len(self.atab):
-                elsz = self.atab[eref].size
+        # Check for composite element types (arrays or records)
+        if etyp == self.TYPE_ARRAY and eref < len(self.atab):
+            elsz = self.atab[eref].size
+        elif etyp == self.TYPE_RECORD and eref < len(self.btab):
+            elsz = self.btab[eref].vsze
         
         size = (high - low + 1) * elsz
         
@@ -250,19 +252,66 @@ class SymbolTable:
             field_name = field.get("name", "")
             field_type = field.get("type", "integer")
             
-            # Get type code
-            if field_type in ['integer', 'real', 'boolean', 'char']:
-                type_map = {
-                    'integer': self.TYPE_INTEGER,
-                    'real': self.TYPE_REAL,
-                    'boolean': self.TYPE_BOOLEAN,
-                    'char': self.TYPE_CHAR
-                }
-                type_code = type_map.get(field_type, self.TYPE_INTEGER)
-            else:
-                type_code = self.TYPE_INTEGER  # Default
+            type_code = self.TYPE_INTEGER
+            type_ref = 0
+            field_size = 4
             
-            field_size = self.TYPE_SIZES.get(type_code, 4)
+            # Handle different field type formats
+            if isinstance(field_type, dict):
+                # Composite type (array or record)
+                if field_type.get("type") == "array":
+                    # Array type - create atab entry
+                    elem_type_info = field_type.get("element_type", "integer")
+                    etyp = self.TYPE_INTEGER
+                    eref = 0
+                    
+                    if isinstance(elem_type_info, str):
+                        if elem_type_info in ['integer', 'real', 'boolean', 'char']:
+                            etyp = {'integer': self.TYPE_INTEGER, 'real': self.TYPE_REAL,
+                                   'boolean': self.TYPE_BOOLEAN, 'char': self.TYPE_CHAR}[elem_type_info]
+                        else:
+                            # Look up custom type
+                            idx_lookup, entry_lookup = self.lookup(elem_type_info)
+                            if entry_lookup:
+                                etyp = entry_lookup.type
+                                eref = entry_lookup.ref
+                    elif isinstance(elem_type_info, dict):
+                        # Nested array/record - this would need recursive handling
+                        etyp = self.TYPE_INTEGER  # Simplified for now
+                    
+                    low = field_type.get("low", 0)
+                    high = field_type.get("high", 0)
+                    
+                    type_code = self.TYPE_ARRAY
+                    type_ref = self.enter_array(self.TYPE_INTEGER, etyp, eref, low, high)
+                    field_size = self.atab[type_ref].size if type_ref < len(self.atab) else 4
+                elif field_type.get("type") == "record":
+                    # Nested record - would need recursive enter_record
+                    type_code = self.TYPE_RECORD
+                    type_ref = 0  # Would need recursive handling
+                    field_size = 4  # Placeholder
+            elif isinstance(field_type, str):
+                # Basic type string or custom type name
+                if field_type in ['integer', 'real', 'boolean', 'char']:
+                    type_map = {
+                        'integer': self.TYPE_INTEGER,
+                        'real': self.TYPE_REAL,
+                        'boolean': self.TYPE_BOOLEAN,
+                        'char': self.TYPE_CHAR
+                    }
+                    type_code = type_map[field_type]
+                    field_size = self.TYPE_SIZES[type_code]
+                else:
+                    # Custom type name - look it up in symbol table
+                    idx, entry = self.lookup(field_type)
+                    if entry and entry.obj == self.OBJ_TYPE:
+                        type_code = entry.type
+                        type_ref = entry.ref
+                        field_size = self.get_type_size(type_code, type_ref)
+                    else:
+                        # Unknown type, use integer as default
+                        type_code = self.TYPE_INTEGER
+                        field_size = 4
             
             # Enter field into tab as a special variable
             # Fields have obj=OBJ_VARIABLE, but are linked through btab
@@ -273,7 +322,7 @@ class SymbolTable:
                 name=field_name,
                 obj=self.OBJ_VARIABLE,
                 typ=type_code,
-                ref=0,
+                ref=type_ref,
                 nrm=1,
                 lev=self.current_level + 1,  # Fields at level beyond current (not searchable via normal lookup)
                 adr=offset,
@@ -330,8 +379,11 @@ class SymbolTable:
             for i, entry in enumerate(self.atab):
                 xtyp_name = self._type_to_string(entry.xtyp)
                 etyp_name = self._type_to_string(entry.etyp)
+                # Show both name and number: "INT(1)"
+                xtyp_display = f"{entry.xtyp}"
+                etyp_display = f"{entry.etyp}"
                 result.append(
-                    f"{i:<6} {xtyp_name:<10} {etyp_name:<10} {entry.eref:<6} "
+                    f"{i:<6} {xtyp_display:<10} {etyp_display:<10} {entry.eref:<6} "
                     f"{entry.low:<6} {entry.high:<6} {entry.elsz:<6} {entry.size:<6}"
                 )
         

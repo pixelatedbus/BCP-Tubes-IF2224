@@ -304,19 +304,8 @@ class ASTDecorator:
             )
             return
         
-        # Try to get primitive type first
-        type_code = self.get_type_code(node.var_type)
-        ref = 0
-        
-        # If not a primitive type, look up user-defined type
-        if type_code == SymbolTable.TYPE_NOTYPE:
-            type_idx, type_entry = self.symbol_table.lookup(node.var_type)
-            if type_entry and type_entry.obj == SymbolTable.OBJ_TYPE:
-                type_code = type_entry.type
-                ref = type_entry.ref
-            else:
-                self.errors.append(f"Error: Unknown type '{node.var_type}'")
-                return
+        # Process type spec (handles strings, dicts, etc.)
+        type_code, ref = self.process_type_spec(node.var_type)
         
         # Calculate address based on scope
         if self.symbol_table.current_level == 0:
@@ -521,27 +510,34 @@ class ASTDecorator:
             self.visit(child)
     
     def visit_AssignmentStatementNode(self, node):
-        idx, entry = self.symbol_table.lookup(node.variable_name)
-        if entry is None:
-            self.errors.append(
-                f"Error: Undefined variable '{node.variable_name}'"
-            )
-            return
-        
-        if entry.obj != SymbolTable.OBJ_VARIABLE:
-            self.errors.append(
-                f"Error: '{node.variable_name}' is not a variable"
-            )
-            return
-        
-        node.symbol_idx = idx
-        node.variable_type = entry.type
+        # Handle composite LHS (array access, field access)
+        if hasattr(node, 'lhs_node') and node.lhs_node is not None:
+            lhs_type = self.get_lhs_type(node.lhs_node)
+            node.variable_type = lhs_type
+        else:
+            # Simple variable assignment
+            idx, entry = self.symbol_table.lookup(node.variable_name)
+            if entry is None:
+                self.errors.append(
+                    f"Error: Undefined variable '{node.variable_name}'"
+                )
+                return
+            
+            if entry.obj != SymbolTable.OBJ_VARIABLE:
+                self.errors.append(
+                    f"Error: '{node.variable_name}' is not a variable"
+                )
+                return
+            
+            node.symbol_idx = idx
+            node.variable_type = entry.type
+            lhs_type = entry.type
         
         if hasattr(node, 'value'):
             expr_type = self.visit_expression(node.value)
             node.expression_type = expr_type
             
-            if not self.types_compatible(entry.type, expr_type):
+            if not self.types_compatible(lhs_type, expr_type):
                 self.errors.append(
                     f"Error: Type mismatch in assignment to '{node.variable_name}'"
                 )
@@ -659,6 +655,9 @@ class ASTDecorator:
         elif node_type == 'ArrayAccessNode':
             return self.visit_ArrayAccessNode(node)
         
+        elif node_type == 'FieldAccessNode':
+            return self.visit_FieldAccessNode(node)
+        
         return SymbolTable.TYPE_NOTYPE
     
     def visit_FunctionCallNode(self, node):
@@ -680,25 +679,114 @@ class ASTDecorator:
         return entry.type
     
     def visit_ArrayAccessNode(self, node):
-        idx, entry = self.symbol_table.lookup(node.array_name)
-        if entry is None:
-            self.errors.append(f"Error: Undefined array '{node.array_name}'")
-            return SymbolTable.TYPE_NOTYPE
+        # Get type and ref info from array base (string or nested node)
+        array_ref = None
         
-        if entry.type != SymbolTable.TYPE_ARRAY:
-            self.errors.append(f"Error: '{node.array_name}' is not an array")
-            return SymbolTable.TYPE_NOTYPE
+        if isinstance(node.array_name, str):
+            # Simple case: array_name is identifier string
+            idx, entry = self.symbol_table.lookup(node.array_name)
+            if entry is None:
+                self.errors.append(f"Error: Undefined array '{node.array_name}'")
+                return SymbolTable.TYPE_NOTYPE
+            
+            if entry.type != SymbolTable.TYPE_ARRAY:
+                self.errors.append(f"Error: '{node.array_name}' is not an array")
+                return SymbolTable.TYPE_NOTYPE
+            
+            node.symbol_idx = idx
+            array_ref = entry.ref
+        else:
+            # Nested access: array_name is another node
+            base_type = self.visit_factor(node.array_name)
+            
+            # Get the ref based on base node type
+            if base_type == SymbolTable.TYPE_ARRAY:
+                # Base is array - get eref from the array's atab entry
+                if hasattr(node.array_name, 'array_ref'):
+                    array_ref = node.array_name.array_ref
+                else:
+                    self.errors.append(f"Error: Cannot determine array element type")
+                    return SymbolTable.TYPE_NOTYPE
+            elif base_type == SymbolTable.TYPE_RECORD:
+                # This shouldn't happen for array access - field should come first
+                self.errors.append(f"Error: Indexed expression is not an array")
+                return SymbolTable.TYPE_NOTYPE
+            else:
+                self.errors.append(f"Error: Indexed expression is not an array")
+                return SymbolTable.TYPE_NOTYPE
         
-        node.symbol_idx = idx
-        
+        # Visit the index expression
         self.visit_expression(node.index)
         
-        if entry.ref < len(self.symbol_table.atab):
-            elem_type = self.symbol_table.atab[entry.ref].etyp
+        # Get element type from atab
+        if array_ref is not None and array_ref < len(self.symbol_table.atab):
+            elem_type = self.symbol_table.atab[array_ref].etyp
+            elem_ref = self.symbol_table.atab[array_ref].eref
             node.expression_type = elem_type
+            node.array_ref = elem_ref  # Store ref for further nesting
+            node.elem_type = elem_type
             return elem_type
         
         return SymbolTable.TYPE_NOTYPE
+    
+    def visit_FieldAccessNode(self, node):
+        # Get type of the record expression (base)
+        record_expr_type = self.visit_factor(node.record_expr)
+        
+        if record_expr_type != SymbolTable.TYPE_RECORD:
+            self.errors.append(f"Error: Field access on non-record type")
+            return SymbolTable.TYPE_NOTYPE
+        
+        # Get the btab ref from the record expression
+        record_ref = None
+        if hasattr(node.record_expr, 'array_ref') and hasattr(node.record_expr, 'elem_type') and node.record_expr.elem_type == SymbolTable.TYPE_RECORD:
+            # Record came from array element
+            record_ref = node.record_expr.array_ref
+        elif hasattr(node.record_expr, 'record_ref') and node.record_expr.record_ref > 0:
+            # Record came from nested field
+            record_ref = node.record_expr.record_ref
+        elif hasattr(node.record_expr, 'name'):
+            # Simple identifier - look it up
+            idx, entry = self.symbol_table.lookup(node.record_expr.name)
+            if entry and entry.type == SymbolTable.TYPE_RECORD:
+                record_ref = entry.ref
+        
+        # Look up field in btab
+        if record_ref is not None and record_ref < len(self.symbol_table.btab):
+            # Search for field in the record's scope
+            btab_entry = self.symbol_table.btab[record_ref]
+            last_idx = btab_entry.last
+            
+            # Search backwards through tab for field
+            field_type = SymbolTable.TYPE_INTEGER  # Default assumption
+            field_ref = 0
+            
+            # Simple field lookup - iterate through record fields
+            idx = last_idx
+            while idx > 0:
+                entry = self.symbol_table.tab[idx]
+                if entry.obj == SymbolTable.OBJ_VARIABLE and entry.name == node.field_name:
+                    field_type = entry.type
+                    field_ref = entry.ref
+                    break
+                if entry.link == 0:
+                    break
+                idx = entry.link
+            
+            node.expression_type = field_type
+            node.field_type = field_type
+            node.array_ref = field_ref if field_type == SymbolTable.TYPE_ARRAY else 0
+            node.record_ref = field_ref if field_type == SymbolTable.TYPE_RECORD else 0
+            return field_type
+        
+        # Fallback - assume integer field
+        node.expression_type = SymbolTable.TYPE_INTEGER
+        return SymbolTable.TYPE_INTEGER
+    
+    def get_lhs_type(self, lhs_node):
+        """Get the type of a left-hand side expression (for assignments)"""
+        # Just visit the node and let it determine its own type
+        return self.visit_factor(lhs_node)
     
     def visit_IfStatementNode(self, node):
         if hasattr(node, 'compare'):
@@ -768,13 +856,34 @@ class ASTDecorator:
         if isinstance(type_spec, str):
             if type_spec in ['integer', 'real', 'boolean', 'char']:
                 return self.get_type_code(type_spec), 0
+            # Look up user-defined type
+            type_idx, type_entry = self.symbol_table.lookup(type_spec)
+            if type_entry and type_entry.obj == SymbolTable.OBJ_TYPE:
+                return type_entry.type, type_entry.ref
+            # Unknown type - return TYPE_NOTYPE
             return SymbolTable.TYPE_NOTYPE, 0
         
         # Handle array type dictionary
         if isinstance(type_spec, dict) and type_spec.get("type") == "array":
-            # Get element type
-            elem_type_str = type_spec.get("element_type", "integer")
-            elem_type_code = self.get_type_code(elem_type_str)
+            # Get element type (can be string or nested dict)
+            elem_type_info = type_spec.get("element_type", "integer")
+            elem_type_code = SymbolTable.TYPE_NOTYPE
+            elem_ref = 0
+            
+            # Check if element_type is a dict (nested array or record)
+            if isinstance(elem_type_info, dict):
+                # Recursively process nested type
+                elem_type_code, elem_ref = self.process_type_spec(elem_type_info)
+            elif isinstance(elem_type_info, str):
+                # Check if it's a basic type
+                if elem_type_info in ['integer', 'real', 'boolean', 'char']:
+                    elem_type_code = self.get_type_code(elem_type_info)
+                else:
+                    # Look up user-defined type
+                    type_idx, type_entry = self.symbol_table.lookup(elem_type_info)
+                    if type_entry and type_entry.obj == SymbolTable.OBJ_TYPE:
+                        elem_type_code = type_entry.type
+                        elem_ref = type_entry.ref
             
             # Get bounds
             low = type_spec.get("low", 0)
@@ -787,7 +896,7 @@ class ASTDecorator:
             atab_idx = self.symbol_table.enter_array(
                 xtyp=xtyp,
                 etyp=elem_type_code,
-                eref=0,  # No nested arrays for now
+                eref=elem_ref,
                 low=low,
                 high=high
             )
@@ -814,5 +923,8 @@ class ASTDecorator:
         if type1 == type2:
             return True
         if {type1, type2} == {SymbolTable.TYPE_INTEGER, SymbolTable.TYPE_REAL}:
+            return True
+        # Allow integer to boolean (for 1/0 as true/false)
+        if {type1, type2} == {SymbolTable.TYPE_INTEGER, SymbolTable.TYPE_BOOLEAN}:
             return True
         return False

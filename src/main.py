@@ -10,7 +10,6 @@ def main():
     sm = RuleReader.from_file("../test/milestone-1/input_indo.json")
     automata = Automata(sm)
     
-    # Accept command line argument or prompt for input
     if len(sys.argv) > 1:
         test_code = sys.argv[1]
     else:
@@ -31,15 +30,12 @@ def main():
     
     parser = Parser(automata.tokens)
     parse_tree = parser.parse_program()
-    print(parse_tree)
 
-    print("\nAST:")
+    # print("\nAST:")
     ast = build_ast(parse_tree)
-    print(ast.to_string())
 
     ast.save_to_file("../test/milestone-3/output_ast.txt")
     
-    # Semantic analysis
     print("\nSEMANTIC ANALYSIS:")
     decorator = ASTDecorator()
     symbol_table, errors = decorator.decorate(ast)

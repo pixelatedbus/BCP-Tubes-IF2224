@@ -11,22 +11,88 @@ from node_class.statement.statement_list_node import StatementListNode
 from node_class.misc.block_node import BlockNode
 from .helpers import extract_identifier, extract_keyword
 from ..expression.expression_builder import build_expression
+from ...node_class.expression.array_access_node import ArrayAccessNode
+from ...node_class.expression.field_access_node import FieldAccessNode
+from ...node_class.expression.identifier_node import IdentifierNode
 
 
 def build_assignment_statement(parse_node):
     if parse_node.name != "<assignment-statement>":
         raise ValueError(f"Expected <assignment-statement>, got {parse_node.name}")
     
-    variable_name = "unknown"
+    # Build left-hand side (can be identifier, array access, or field access)
+    lhs = None
     expression_node = None
     
-    for child in parse_node.children:
-        if child.name.startswith("IDENTIFIER"):
-            variable_name = extract_identifier(child)
-        elif child.name == "<expression>":
-            expression_node = build_expression(child)
+    i = 0
+    children = parse_node.children
     
-    return AssignmentStatementNode(variable_name, expression_node)
+    # Get base identifier
+    if i < len(children) and children[i].name.startswith("IDENTIFIER"):
+        identifier = extract_identifier(children[i])
+        lhs = IdentifierNode(identifier)
+        i += 1
+        
+        # Process array indexing and/or field access
+        while i < len(children) and not children[i].name.startswith("ASSIGN_OPERATOR"):
+            if children[i].name.startswith("LBRACKET"):
+                # Array access
+                i += 1
+                if i < len(children) and children[i].name == "<expression>":
+                    index = build_expression(children[i])
+                    # Use current lhs (could be identifier string or node) as base
+                    if isinstance(lhs, IdentifierNode):
+                        lhs = ArrayAccessNode(lhs.name, index)
+                    else:
+                        lhs = ArrayAccessNode(lhs, index)
+                    i += 1
+                # Skip RBRACKET
+                if i < len(children) and children[i].name.startswith("RBRACKET"):
+                    i += 1
+            elif children[i].name.startswith("DOT"):
+                # Field access
+                i += 1
+                if i < len(children) and children[i].name.startswith("IDENTIFIER"):
+                    field_name = extract_identifier(children[i])
+                    lhs = FieldAccessNode(lhs, field_name)
+                    i += 1
+            else:
+                i += 1
+    
+    # Skip ASSIGN_OPERATOR and get right-hand side expression
+    while i < len(children):
+        if children[i].name == "<expression>":
+            expression_node = build_expression(children[i])
+            break
+        i += 1
+    
+    # Create assignment node with LHS node
+    # For backward compatibility, extract variable name from LHS
+    if isinstance(lhs, IdentifierNode):
+        variable_name = lhs.name
+    elif isinstance(lhs, ArrayAccessNode):
+        # Extract base array name
+        if isinstance(lhs.array_name, str):
+            variable_name = lhs.array_name
+        elif isinstance(lhs.array_name, IdentifierNode):
+            variable_name = lhs.array_name.name
+        else:
+            variable_name = str(lhs.array_name)
+    elif isinstance(lhs, FieldAccessNode):
+        # Extract base record name
+        if isinstance(lhs.record_expr, IdentifierNode):
+            variable_name = lhs.record_expr.name
+        elif isinstance(lhs.record_expr, str):
+            variable_name = lhs.record_expr
+        else:
+            variable_name = str(lhs.record_expr)
+    else:
+        variable_name = "unknown"
+    
+    # Create assignment node - store both variable_name and lhs_node
+    assignment_node = AssignmentStatementNode(variable_name, expression_node)
+    assignment_node.lhs_node = lhs  # Store the full LHS access node
+    return assignment_node
 
 
 def build_if_statement(parse_node):

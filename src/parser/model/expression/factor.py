@@ -35,6 +35,12 @@ def parse_factor(parser):
                 factor_node.add_child(index_expr)
                 parser.check_token("RBRACKET")
                 factor_node.add_child(ParseNode("RBRACKET(]))"))
+            elif next_token[0] == "DOT":
+                # Record field access
+                parser.advance()
+                factor_node.add_child(ParseNode("DOT(.)"))
+                field_token = parser.check_token("IDENTIFIER")
+                factor_node.add_child(ParseNode(f"IDENTIFIER({field_token[1]})"))
             else:
                 break
                 

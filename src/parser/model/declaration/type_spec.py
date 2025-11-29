@@ -9,6 +9,7 @@ def parse_type_spec(parser):
         - integer
         - real
         - 1..10 (range)
+        - CustomTypeName (user-defined type)
     """
     token = parser.current_token()
     
@@ -26,6 +27,10 @@ def parse_type_spec(parser):
     
     if token[0] == "NUMBER" or token[0] == "CHAR_LITERAL":
         return parse_range_type(parser)
+    
+    # Handle custom type names (user-defined types)
+    if token[0] == "IDENTIFIER":
+        return parse_custom_type(parser)
     
     raise SyntaxError(f"Unexpected token in type specification: {token}")
 
@@ -46,14 +51,20 @@ def parse_simple_type(parser):
     raise SyntaxError(f"Expected simple type, got {token}")
 
 
-def parse_range_type(parser):
-    """
-    Parse range type: expression .. expression
+def parse_custom_type(parser):
+    type_node = ParseNode("<custom_type>")
     
-    Example:
-        1..10
-        0..99
-    """
+    token = parser.current_token()
+    if token and token[0] == "IDENTIFIER":
+        identifier_node = ParseNode(f"IDENTIFIER({token[1]})")
+        type_node.add_child(identifier_node)
+        parser.advance()
+        return type_node
+    
+    raise SyntaxError(f"Expected identifier for custom type, got {token}")
+
+
+def parse_range_type(parser):
     range_node = ParseNode("<range_type>")
     
     start_expr = parser.expression_parser.parse_expression()

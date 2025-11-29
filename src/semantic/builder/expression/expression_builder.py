@@ -13,6 +13,7 @@ from ...node_class.expression import (
     ParenthesizedExpressionNode,
     UnaryExpressionNode,
 )
+from ...node_class.expression.field_access_node import FieldAccessNode
 
 
 def build_expression(parse_node):
@@ -140,30 +141,55 @@ def build_factor(parse_node):
                     inner_expr = build_expression(child)
                     return ParenthesizedExpressionNode(inner_expr)
     
-    # Check for identifier (variable, function call, or array access)
+    # Check for identifier (variable, function call, array access, or field access)
     if parse_node.children and parse_node.children[0].name.startswith("IDENTIFIER"):
         identifier = extract_token_value(parse_node.children[0].name)
+        current_node = IdentifierNode(identifier)
+        i = 1
         
-        # Check if it's a function call
-        if len(parse_node.children) >= 2 and parse_node.children[1].name.startswith("LPAREN"):
-            # Find parameter list
-            arguments = []
-            for child in parse_node.children:
-                if child.name == "<parameter_list>":
-                    arguments = build_parameter_list(child)
-                    break
-            return FunctionCallNode(identifier, arguments)
+        # Process chained accessors (function call, array index, field access)
+        while i < len(parse_node.children):
+            child = parse_node.children[i]
+            
+            if child.name.startswith("LPAREN"):
+                # Function call
+                arguments = []
+                for j in range(i, len(parse_node.children)):
+                    if parse_node.children[j].name == "<parameter_list>":
+                        arguments = build_parameter_list(parse_node.children[j])
+                        break
+                current_node = FunctionCallNode(identifier if isinstance(current_node, IdentifierNode) else str(current_node), arguments)
+                i += 1
+                # Skip to RPAREN
+                while i < len(parse_node.children) and not parse_node.children[i].name.startswith("RPAREN"):
+                    i += 1
+                i += 1
+                
+            elif child.name.startswith("LBRACKET"):
+                # Array access
+                i += 1
+                if i < len(parse_node.children) and parse_node.children[i].name == "<expression>":
+                    index = build_expression(parse_node.children[i])
+                    current_node = ArrayAccessNode(
+                        identifier if isinstance(current_node, IdentifierNode) else current_node,
+                        index
+                    )
+                    i += 1
+                # Skip RBRACKET
+                if i < len(parse_node.children) and parse_node.children[i].name.startswith("RBRACKET"):
+                    i += 1
+                    
+            elif child.name.startswith("DOT"):
+                # Field access
+                i += 1
+                if i < len(parse_node.children) and parse_node.children[i].name.startswith("IDENTIFIER"):
+                    field_name = extract_token_value(parse_node.children[i].name)
+                    current_node = FieldAccessNode(current_node, field_name)
+                    i += 1
+            else:
+                i += 1
         
-        # Check if it's an array access
-        if len(parse_node.children) >= 2 and parse_node.children[1].name.startswith("LBRACKET"):
-            # Find the index expression
-            for child in parse_node.children:
-                if child.name == "<expression>":
-                    index = build_expression(child)
-                    return ArrayAccessNode(identifier, index)
-        
-        # It's just a simple identifier
-        return IdentifierNode(identifier)
+        return current_node
     
     raise ValueError(f"Unable to parse factor: {parse_node.name}")
 
