@@ -164,14 +164,27 @@ class SymbolTable:
         
         # Get link to previous identifier in this scope
         link = 0
+        
+        # Only create links for identifiers within the same block/scope
+        # Link points to previous identifier of similar kind (not programs)
         if level < len(self.display):
             start_idx = self.display[level]
             if len(self.tab) > start_idx:
-                # Link to the most recent entry in this scope
-                for i in range(len(self.tab) - 1, start_idx - 1, -1):
-                    if self.tab[i].lev == level:
-                        link = i
-                        break
+                # For Level 0: only link variables/constants/types (not program name)
+                # For Level > 0: link all identifiers in that block
+                if level == 0:
+                    # At global level, only link identifiers of the same category (exclude OBJ_PROGRAM)
+                    for i in range(len(self.tab) - 1, start_idx - 1, -1):
+                        if (self.tab[i].lev == level and i >= 35 and 
+                            self.tab[i].obj != self.OBJ_PROGRAM):  # Don't link to program
+                            link = i
+                            break
+                else:
+                    # In nested scopes, link to the most recent entry in this scope
+                    for i in range(len(self.tab) - 1, start_idx - 1, -1):
+                        if self.tab[i].lev == level:
+                            link = i
+                            break
         
         entry = SymbolTableEntry(
             name=name,
