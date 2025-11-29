@@ -80,6 +80,7 @@ class SymbolTable:
         self.current_level = 0
         self.current_block = 0
         self.display = [0]  # Display register for scope management
+        self.global_data_size = 0  # Track global variable offsets
         
         # Initialize with reserved words and built-in types (indices 0-28)
         self._init_reserved_words()

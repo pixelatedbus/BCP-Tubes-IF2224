@@ -1,0 +1,11 @@
+ProgramNode(name: arraysandtypes)
+    ├── Declarations
+    │   ├── TypeDecl Node(name=intarray, type_spec={'type': 'array', 'low': 1, 'high': 10, 'element_type': 'integer'})
+    │   ├── TypeDecl Node(name=realarray, type_spec={'type': 'array', 'low': 0, 'high': 5, 'element_type': 'real'})
+    │   ├── TypeDecl Node(name=chararray, type_spec={'type': 'array', 'low': 1, 'high': 20, 'element_type': 'char'})
+    │   ├── VarDecl Node(name=numbers, type=intarray)
+    │   ├── VarDecl Node(name=scores, type=realarray)
+    │   ├── VarDecl Node(name=name, type=chararray)
+    │   └── VarDecl Node(name=count, type=integer)
+    └── Block
+        └── AssignmentStatement Node(variable_name=count, value=ExpressionNode(SimpleExpressionNode(TermNode(NumberLiteral(5)))))

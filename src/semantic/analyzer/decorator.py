@@ -318,7 +318,15 @@ class ASTDecorator:
                 self.errors.append(f"Error: Unknown type '{node.var_type}'")
                 return
         
-        adr = self.calculate_address()
+        # Calculate address based on scope
+        if self.symbol_table.current_level == 0:
+            # Global variable: use global data size
+            adr = self.symbol_table.global_data_size
+            type_size = self.symbol_table.get_type_size(type_code, ref)
+            self.symbol_table.global_data_size += type_size
+        else:
+            # Local variable: use block vsze
+            adr = self.calculate_address()
         
         idx = self.symbol_table.enter(
             name=node.name,
@@ -356,11 +364,23 @@ class ASTDecorator:
         
         type_code = self.infer_constant_type(node.value)
         
+        # Store constant value in adr field
+        const_value = node.value
+        if isinstance(const_value, str):
+            # Try to convert string to int
+            try:
+                const_value = int(const_value)
+            except ValueError:
+                try:
+                    const_value = int(float(const_value))
+                except ValueError:
+                    const_value = 0
+        
         idx = self.symbol_table.enter(
             name=node.name,
             obj=SymbolTable.OBJ_CONSTANT,
             typ=type_code,
-            adr=0
+            adr=const_value
         )
         
         node.symbol_idx = idx

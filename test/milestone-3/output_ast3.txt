@@ -1,0 +1,11 @@
+ProgramNode(name: recordtypes)
+    ├── Declarations
+    │   ├── TypeDecl Node(name=point, type_spec={'type': 'record', 'fields': [{'name': 'x', 'type': 'integer'}, {'name': 'y', 'type': 'integer'}]})
+    │   ├── TypeDecl Node(name=person, type_spec={'type': 'record', 'fields': [{'name': 'name', 'type': 'char'}, {'name': 'age', 'type': 'integer'}, {'name': 'height', 'type': 'real'}, {'name': 'active', 'type': 'boolean'}]})
+    │   ├── VarDecl Node(name=p1, type=point)
+    │   ├── VarDecl Node(name=p2, type=point)
+    │   ├── VarDecl Node(name=student, type=person)
+    │   ├── VarDecl Node(name=teacher, type=person)
+    │   └── VarDecl Node(name=counter, type=integer)
+    └── Block
+        └── AssignmentStatement Node(variable_name=counter, value=ExpressionNode(SimpleExpressionNode(TermNode(NumberLiteral(0)))))

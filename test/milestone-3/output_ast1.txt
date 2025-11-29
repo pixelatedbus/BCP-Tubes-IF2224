@@ -1,0 +1,11 @@
+ProgramNode(name: simplecalculation)
+    ├── Declarations
+    │   ├── VarDecl Node(name=x, type=integer)
+    │   ├── VarDecl Node(name=y, type=integer)
+    │   ├── VarDecl Node(name=z, type=integer)
+    │   └── VarDecl Node(name=result, type=real)
+    └── Block
+        ├── AssignmentStatement Node(variable_name=x, value=ExpressionNode(SimpleExpressionNode(TermNode(NumberLiteral(10)))))
+        ├── AssignmentStatement Node(variable_name=y, value=ExpressionNode(SimpleExpressionNode(TermNode(NumberLiteral(20)))))
+        ├── AssignmentStatement Node(variable_name=z, value=ExpressionNode(SimpleExpressionNode(TermNode(IdentifierNode(x)) + TermNode(IdentifierNode(y)))))
+        └── AssignmentStatement Node(variable_name=result, value=ExpressionNode(SimpleExpressionNode(TermNode(NumberLiteral(3.14)))))

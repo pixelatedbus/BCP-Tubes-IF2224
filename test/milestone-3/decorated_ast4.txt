@@ -1,0 +1,32 @@
+Decorated AST:
+================================================================================
+
+ProgramNode(name: 'proceduresandfunctions') → tab_index:35
+ ├─ DeclarationsNode
+ │  ├─ VarDeclNode('a') → tab_index:36, type:integer, lev:0
+ │  ├─ VarDeclNode('b') → tab_index:37, type:integer, lev:0
+ │  ├─ VarDeclNode('sum') → tab_index:38, type:integer, lev:0
+ │  ├─ ProcedureDeclNode('swap') → tab_index:39, block_index:0
+ │  │  ├─ ParameterNode
+ │  │  ├─ ParameterNode
+ │  │  └─ VarDeclNode('temp') → tab_index:42, type:integer, lev:1
+ │  └─ FunctionDeclNode('add') → tab_index:43, block_index:1, return_type:integer
+ │     ├─ ParameterNode
+ │     ├─ ParameterNode
+ │     └─ VarDeclNode('result') → tab_index:46, type:integer, lev:1
+ └─ BlockNode
+    ├─ Assign('a' := ...) → type:integer, tab_index:36
+    │  └─ Expression → type:integer
+    │     └─ SimpleExpression → type:integer
+    │        └─ Term → type:integer
+    │           └─ NumberLiteral(10) → type:integer
+    ├─ Assign('b' := ...) → type:integer, tab_index:37
+    │  └─ Expression → type:integer
+    │     └─ SimpleExpression → type:integer
+    │        └─ Term → type:integer
+    │           └─ NumberLiteral(20) → type:integer
+    └─ Assign('sum' := ...) → type:integer, tab_index:38
+       └─ Expression → type:integer
+          └─ SimpleExpression → type:integer
+             └─ Term → type:integer
+                └─ NumberLiteral(0) → type:integer

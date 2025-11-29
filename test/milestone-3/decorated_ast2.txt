@@ -1,0 +1,18 @@
+Decorated AST:
+================================================================================
+
+ProgramNode(name: 'arraysandtypes') → tab_index:35
+ ├─ DeclarationsNode
+ │  ├─ TypeDeclNode('intarray') → tab_index:36, type:array, lev:0
+ │  ├─ TypeDeclNode('realarray') → tab_index:37, type:array, lev:0
+ │  ├─ TypeDeclNode('chararray') → tab_index:38, type:array, lev:0
+ │  ├─ VarDeclNode('numbers') → tab_index:39, type:array, lev:0
+ │  ├─ VarDeclNode('scores') → tab_index:40, type:array, lev:0
+ │  ├─ VarDeclNode('name') → tab_index:41, type:array, lev:0
+ │  └─ VarDeclNode('count') → tab_index:42, type:integer, lev:0
+ └─ BlockNode
+    └─ Assign('count' := ...) → type:integer, tab_index:42
+       └─ Expression → type:integer
+          └─ SimpleExpression → type:integer
+             └─ Term → type:integer
+                └─ NumberLiteral(5) → type:integer

@@ -1,0 +1,32 @@
+Decorated AST:
+================================================================================
+
+ProgramNode(name: 'simplecalculation') → tab_index:35
+ ├─ DeclarationsNode
+ │  ├─ VarDeclNode('x') → tab_index:36, type:integer, lev:0
+ │  ├─ VarDeclNode('y') → tab_index:37, type:integer, lev:0
+ │  ├─ VarDeclNode('z') → tab_index:38, type:integer, lev:0
+ │  └─ VarDeclNode('result') → tab_index:39, type:real, lev:0
+ └─ BlockNode
+    ├─ Assign('x' := ...) → type:integer, tab_index:36
+    │  └─ Expression → type:integer
+    │     └─ SimpleExpression → type:integer
+    │        └─ Term → type:integer
+    │           └─ NumberLiteral(10) → type:integer
+    ├─ Assign('y' := ...) → type:integer, tab_index:37
+    │  └─ Expression → type:integer
+    │     └─ SimpleExpression → type:integer
+    │        └─ Term → type:integer
+    │           └─ NumberLiteral(20) → type:integer
+    ├─ Assign('z' := ...) → type:integer, tab_index:38
+    │  └─ Expression → type:integer
+    │     └─ SimpleExpression(ops: ['+']) → type:integer
+    │        ├─ Term → type:integer
+    │        │  └─ Identifier('x') → tab_index:36, type:integer
+    │        └─ Term → type:integer
+    │           └─ Identifier('y') → tab_index:37, type:integer
+    └─ Assign('result' := ...) → type:real, tab_index:39
+       └─ Expression → type:real
+          └─ SimpleExpression → type:real
+             └─ Term → type:real
+                └─ NumberLiteral(3.14) → type:real

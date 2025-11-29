@@ -1,0 +1,11 @@
+ProgramNode(name: proceduresandfunctions)
+    ├── Declarations
+    │   ├── VarDecl Node(name=a, type=integer)
+    │   ├── VarDecl Node(name=b, type=integer)
+    │   ├── VarDecl Node(name=sum, type=integer)
+    │   ├── ProcedureDecl Node(name=swap, params=2, decls=1)
+    │   └── FunctionDecl Node(name=add, params=2, return_type=integer)
+    └── Block
+        ├── AssignmentStatement Node(variable_name=a, value=ExpressionNode(SimpleExpressionNode(TermNode(NumberLiteral(10)))))
+        ├── AssignmentStatement Node(variable_name=b, value=ExpressionNode(SimpleExpressionNode(TermNode(NumberLiteral(20)))))
+        └── AssignmentStatement Node(variable_name=sum, value=ExpressionNode(SimpleExpressionNode(TermNode(NumberLiteral(0)))))

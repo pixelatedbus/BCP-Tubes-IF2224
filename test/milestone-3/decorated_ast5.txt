@@ -1,0 +1,43 @@
+Decorated AST:
+================================================================================
+
+ProgramNode(name: 'complexprogram') → tab_index:35
+ ├─ DeclarationsNode
+ │  ├─ ConstDeclNode('max') → tab_index:36, type:integer, lev:0
+ │  ├─ ConstDeclNode('pi') → tab_index:37, type:integer, lev:0
+ │  ├─ TypeDeclNode('status') → tab_index:38, type:boolean, lev:0
+ │  ├─ TypeDeclNode('age') → tab_index:39, type:integer, lev:0
+ │  ├─ TypeDeclNode('score') → tab_index:40, type:real, lev:0
+ │  ├─ TypeDeclNode('studentrecord') → tab_index:44, type:record, lev:0
+ │  ├─ TypeDeclNode('numberlist') → tab_index:45, type:array, lev:0
+ │  ├─ VarDeclNode('isactive') → tab_index:46, type:boolean, lev:0
+ │  ├─ VarDeclNode('studentage') → tab_index:47, type:integer, lev:0
+ │  ├─ VarDeclNode('testscore') → tab_index:48, type:real, lev:0
+ │  ├─ VarDeclNode('student1') → tab_index:49, type:record, lev:0
+ │  ├─ VarDeclNode('numbers') → tab_index:50, type:array, lev:0
+ │  ├─ VarDeclNode('total') → tab_index:51, type:integer, lev:0
+ │  ├─ ProcedureDeclNode('initialize') → tab_index:52, block_index:1
+ │  ├─ FunctionDeclNode('calculate') → tab_index:53, block_index:2, return_type:integer
+ │  │  ├─ ParameterNode
+ │  │  ├─ ParameterNode
+ │  │  └─ VarDeclNode('temp') → tab_index:56, type:integer, lev:1
+ │  └─ FunctionDeclNode('average') → tab_index:57, block_index:3, return_type:real
+ │     ├─ ParameterNode
+ │     ├─ ParameterNode
+ │     └─ VarDeclNode('result') → tab_index:60, type:real, lev:1
+ └─ BlockNode
+    ├─ Assign('studentage' := ...) → type:integer, tab_index:47
+    │  └─ Expression → type:integer
+    │     └─ SimpleExpression → type:integer
+    │        └─ Term → type:integer
+    │           └─ NumberLiteral(20) → type:integer
+    ├─ Assign('testscore' := ...) → type:real, tab_index:48
+    │  └─ Expression → type:real
+    │     └─ SimpleExpression → type:real
+    │        └─ Term → type:real
+    │           └─ NumberLiteral(95.5) → type:real
+    └─ Assign('total' := ...) → type:integer, tab_index:51
+       └─ Expression → type:integer
+          └─ SimpleExpression → type:integer
+             └─ Term → type:integer
+                └─ NumberLiteral(0) → type:integer

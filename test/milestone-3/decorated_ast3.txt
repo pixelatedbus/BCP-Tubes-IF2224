@@ -1,0 +1,18 @@
+Decorated AST:
+================================================================================
+
+ProgramNode(name: 'recordtypes') → tab_index:35
+ ├─ DeclarationsNode
+ │  ├─ TypeDeclNode('point') → tab_index:38, type:record, lev:0
+ │  ├─ TypeDeclNode('person') → tab_index:43, type:record, lev:0
+ │  ├─ VarDeclNode('p1') → tab_index:44, type:record, lev:0
+ │  ├─ VarDeclNode('p2') → tab_index:45, type:record, lev:0
+ │  ├─ VarDeclNode('student') → tab_index:46, type:record, lev:0
+ │  ├─ VarDeclNode('teacher') → tab_index:47, type:record, lev:0
+ │  └─ VarDeclNode('counter') → tab_index:48, type:integer, lev:0
+ └─ BlockNode
+    └─ Assign('counter' := ...) → type:integer, tab_index:48
+       └─ Expression → type:integer
+          └─ SimpleExpression → type:integer
+             └─ Term → type:integer
+                └─ NumberLiteral(0) → type:integer
