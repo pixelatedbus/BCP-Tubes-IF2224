@@ -1,9 +1,3 @@
-"""
-Symbol Table Implementation
-Three-table system: tab (identifiers), atab (arrays), btab (blocks)
-"""
-
-
 class SymbolTableEntry:
     def __init__(self, name, obj, typ, ref=0, nrm=1, lev=0, adr=0, link=0):
         self.name = name        # Identifier name
